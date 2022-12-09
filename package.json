@@ -1,0 +1,27 @@
+{
+  "name": "authing-multiple-tenant-demo",
+  "version": "1.0.0",
+  "description": "Authing Multi-Tenant Demo",
+  "scripts": {
+    "install": "pnpm install:client && pnpm install:server",
+    "start": " pnpm start:client & pnpm start:server",
+    "prepare": "npm i pnpm",
+    "prestart": "pnpm install",
+    "install:client": "cd ./client && pnpm install && cd ..",
+    "install:server": "cd ./server && pnpm install && cd ..",
+    "start:client": "cd ./client && pnpm start",
+    "start:server": "cd ./server && pnpm start"
+  },
+  "keywords": [
+    "Multi-Tenant",
+    "tenant",
+    "Authing",
+    "multiple",
+    "tenant"
+  ],
+  "author": "authing",
+  "license": "ISC",
+  "dependencies": {
+    "pnpm": "^7.18.1"
+  }
+}
