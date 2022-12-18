@@ -9,6 +9,7 @@ export default defineConfig({
       "@": "/src/",
     },
   },
+  envPrefix: "Authing_",
   server: {
     port: 3009,
     proxy: {
