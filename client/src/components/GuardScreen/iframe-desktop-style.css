@@ -1,0 +1,35 @@
+:root {
+  --authing-guard-bg: #fff;
+}
+[class*="authing-"].authing-guard-layout {
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 24px 0;
+  background: var(--authing-guard-bg);
+}
+
+.guardContainer {
+  display: flex;
+  min-height: calc(100vh - 48px);
+  flex-direction: column;
+  justify-content: center;
+}
+.guardContainer > div {
+  height: 100%;
+}
+.qrcode > span {
+  color: #888;
+}
+[class*="authing-"].authing-g2-login-app-qrcode img {
+  width: 180px;
+  height: 180px;
+}
+[class*="authing-"].authing-agreements-checkbox
+  > [class*="authing-"].authing-ant-checkbox {
+  top: 3px;
+}
