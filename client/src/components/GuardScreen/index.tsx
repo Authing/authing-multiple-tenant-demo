@@ -11,10 +11,11 @@ import { default as iframeDesktopStyle } from "./iframe-desktop-style.css";
 export interface GuardScreenProps extends GuardProps {
   className?: string;
   style?: React.CSSProperties;
+  background?: string;
 }
 
 export const GuardScreen = (props: GuardScreenProps) => {
-  const { style, className, ...guardProps } = props;
+  const { style, className, background, ...guardProps } = props;
   const [everythingReady, setEverythingReady] = useState(false);
   const [ctx, setCtx] = useState<SandBoxContext>();
   const handleLoaded = useCallback((ctx: any) => {
@@ -26,15 +27,12 @@ export const GuardScreen = (props: GuardScreenProps) => {
     }
   }, [ctx]);
 
-  const guardPanelState: any = {};
   const iframeHeadDOM = useMemo<React.ReactNode>(() => {
     return (
       <>
         <style>{guardStyle}</style>
         <style>{iframeDesktopStyle}</style>
-        <style>{`:root{--authing-guard-bg:${
-          guardPanelState?.publicConfig?.loadingBackground ?? "#fff" //TODO:
-        }}`}</style>
+        <style>{`:root{--authing-guard-bg:${background ?? "#fff"}}`}</style>
       </>
     );
   }, [iframeDesktopStyle, guardStyle]);
