@@ -13,10 +13,9 @@ export default defineConfig({
   server: {
     port: 3009,
     proxy: {
-      "^/api/.*": {
+      "^/authing-tenant/.*": {
         target: "http://localhost:3010",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
