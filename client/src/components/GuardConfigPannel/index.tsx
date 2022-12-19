@@ -9,6 +9,9 @@ import env from "@/config/env";
 import { useGuardGlobalState } from "@/context/guardContext";
 import { QuestionCircleOutlined, RightOutlined } from "@ant-design/icons";
 
+import { Code } from "../Code";
+import { default as defaultCodeCss } from "./default-code-css.css";
+
 export interface GuardConfigPannelProps {
   className?: string;
   style?: React.CSSProperties;
@@ -84,7 +87,8 @@ export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
       form.getFieldValue(["publicConfig", "cssEnabled"]) && {
         noStyle: true,
         name: ["publicConfig", "css"],
-        children: <input />,
+        initialValue: defaultCodeCss,
+        children: <Code className="authing-mtd-code-css" mode="css" />,
       },
     ] as FormItemProps[]
   ).filter(Boolean);
