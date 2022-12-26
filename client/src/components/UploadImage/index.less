@@ -1,0 +1,50 @@
+.upload-wrapper {
+  .custom-icon {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid #eaebee;
+    border-radius: 4px;
+    margin-right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    .mask {
+      display: none;
+    }
+    &:hover .mask {
+      position: absolute;
+      width: 56px;
+      height: 56px;
+      font-size: 24px;
+      bottom: -1px;
+      left: -1px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(41, 51, 80, 0.5);
+      backdrop-filter: blur(2px);
+      color: white;
+      z-index: 1;
+    }
+  }
+
+  .upload-btn {
+    background: #ebf0ff;
+    border-radius: 4px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 12px;
+    border: none;
+    outline: none;
+    text-align: center;
+    > span {
+      color: #215ae5;
+    }
+  }
+}
