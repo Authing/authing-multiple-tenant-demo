@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const host = process.env["DEMO_API_ENDPOINT"];
+const host = process.env["DEMO_AUTHING_API_ENDPOINT"];
 
 const authingRequest = async (
   method,
