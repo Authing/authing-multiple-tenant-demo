@@ -14,10 +14,19 @@ export interface GuardScreenProps extends GuardProps {
   background?: string;
   /** 自定义 css */
   customCss?: string;
+  /** 是否阻止时间冒泡 */
+  stopPropagation?: boolean;
 }
 
 export const GuardScreen = (props: GuardScreenProps) => {
-  const { style, className, background, customCss, ...guardProps } = props;
+  const {
+    style,
+    className,
+    background,
+    customCss,
+    stopPropagation,
+    ...guardProps
+  } = props;
   const [everythingReady, setEverythingReady] = useState(false);
   const [ctx, setCtx] = useState<SandBoxContext>();
   const handleLoaded = useCallback((ctx: any) => {
@@ -40,6 +49,18 @@ export const GuardScreen = (props: GuardScreenProps) => {
     );
   }, [iframeDesktopStyle, guardStyle, background, customCss]);
 
+  useEffect(() => {
+    if (!stopPropagation) return;
+    const handler = (e: any) => {
+      e?.stopPropagation();
+      e?.preventDefault();
+    };
+    ctx?.document?.addEventListener("click", handler, true);
+    return () => {
+      ctx?.document?.addEventListener("click", handler, true);
+    };
+  }, [stopPropagation]);
+
   return (
     <SandBox
       className={className}
@@ -57,10 +78,14 @@ export const GuardScreen = (props: GuardScreenProps) => {
       >
         <div className="ant-layout  authing-guard-layout authing-user-portal-layout">
           {everythingReady ? (
-            <div className="guardContainer">
-              <Guard {...guardProps} />
-              <GuardPanelFooter />
-            </div>
+            <>
+              {/* 该处 DOM 结构固定 */}
+              <div className="react-joyride"></div>
+              <div className="guardContainer">
+                <Guard {...guardProps} />
+                <GuardPanelFooter />
+              </div>
+            </>
           ) : (
             <div
               style={{

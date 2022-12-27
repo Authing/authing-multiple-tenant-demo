@@ -3,15 +3,16 @@ import "./index.less";
 import { Button, Col, Row } from "antd";
 import { useCallback, useEffect, useMemo } from "react";
 
+import { getPublicConfig } from "@/api";
 import { GuardConfigPannel } from "@/components/GuardConfigPannel";
 import { GuardScreen } from "@/components/GuardScreen";
+import env from "@/config/env";
 import { useGuardGlobalState } from "@/context/guardContext";
 import { GuardAppendConfig } from "@authing/react18-ui-components";
-import env from "@/config/env";
-import { getPublicConfig } from "@/api";
 
 export const BrandSetting = () => {
   const appId = "63a43dea37b791ee725a2338";
+  const tenantId = "";
   const [guardState, setGuardState] = useGuardGlobalState();
 
   useEffect(() => {
@@ -56,6 +57,7 @@ export const BrandSetting = () => {
       <Row className="authing-mtd-brand-setting">
         <Col flex="auto">
           <GuardScreen
+            stopPropagation
             className="authing-mtd-guard-screen"
             background={guardState?.publicConfig?.loadingBackground}
             customCss={customCss!}
