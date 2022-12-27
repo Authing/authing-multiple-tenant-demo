@@ -6,11 +6,16 @@ import { merge } from "lodash";
 import { useCallback, useState } from "react";
 
 import env from "@/config/env";
-import { useGuardGlobalState } from "@/context/guardContext";
+import {
+  GuardGlobalStateProps,
+  useGuardGlobalState,
+} from "@/context/guardContext";
 import { QuestionCircleOutlined, RightOutlined } from "@ant-design/icons";
 
 import { Code } from "../Code";
+import { UploadImage } from "../UploadImage";
 import { default as defaultCodeCss } from "./default-code-css.css";
+import { BackgroundPicker } from "../BackgroundPicker";
 
 export interface GuardConfigPannelProps {
   className?: string;
@@ -20,12 +25,14 @@ export interface GuardConfigPannelProps {
 export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
   const { style, className } = props;
   const [form] = Form.useForm();
-  const [, setUpdate] = useState({});
   const [guardState, setGuardState] = useGuardGlobalState();
 
-  const handleFormValuesChange = useCallback((values: any, allValues: any) => {
-    setGuardState(merge({}, guardState, allValues));
-  }, []);
+  const handleFormValuesChange = useCallback(
+    (values: any, allValues: GuardGlobalStateProps) => {
+      setGuardState(allValues);
+    },
+    []
+  );
 
   const formItems = (
     [
@@ -37,6 +44,7 @@ export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
           </div>
         ),
         name: ["publicConfig", "loadingBackground"],
+        children: <BackgroundPicker />,
       },
       {
         label: (
@@ -45,6 +53,8 @@ export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
             <span className="mtd-label-desc">登录框加载时将会展示</span>
           </div>
         ),
+        name: ["publicConfig", "customLoading"],
+        children: <UploadImage />,
       },
       {
         label: (
@@ -82,7 +92,7 @@ export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
         className: "authing-mtd-switch-css",
         name: ["publicConfig", "cssEnabled"],
         valuePropName: "checked",
-        children: <Switch onChange={() => setUpdate({})} />, // 强制刷新，更新组件
+        children: <Switch />,
       },
       form.getFieldValue(["publicConfig", "cssEnabled"]) && {
         noStyle: true,

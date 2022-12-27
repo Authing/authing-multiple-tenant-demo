@@ -1,17 +1,25 @@
 import "./index.less";
 
 import { Button, Col, Row } from "antd";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { GuardConfigPannel } from "@/components/GuardConfigPannel";
 import { GuardScreen } from "@/components/GuardScreen";
 import { useGuardGlobalState } from "@/context/guardContext";
 import { GuardAppendConfig } from "@authing/react18-ui-components";
 import env from "@/config/env";
+import { getPublicConfig } from "@/api";
 
 export const BrandSetting = () => {
-  const appId = "43344";
-  const [guardState] = useGuardGlobalState();
+  const appId = "63a43dea37b791ee725a2338";
+  const [guardState, setGuardState] = useGuardGlobalState();
+
+  useEffect(() => {
+    getPublicConfig(appId).then((res) => {
+      const data = res?.data?.data;
+      setGuardState({ publicConfig: data ?? {} });
+    });
+  }, [appId]);
 
   const guardConfig = useMemo(() => ({ host: env("GUARD_HOST") }), []);
   const appendConfig = useMemo(
@@ -25,9 +33,16 @@ export const BrandSetting = () => {
     }),
     [guardState]
   );
+
+  const customCss = useMemo(() => {
+    if (!guardState?.publicConfig?.cssEnabled) return "";
+    return guardState?.publicConfig?.css;
+  }, [guardState]);
   const handleSubmit = useCallback(() => {
     console.log("保存配置：", guardState);
   }, [guardState]);
+
+  console.log("getPUblic", appendConfig);
 
   return (
     <div className="authing-mtd-brand-wrapper">
@@ -43,6 +58,7 @@ export const BrandSetting = () => {
           <GuardScreen
             className="authing-mtd-guard-screen"
             background={guardState?.publicConfig?.loadingBackground}
+            customCss={customCss!}
             appId={appId}
             config={guardConfig}
             appendConfig={appendConfig as GuardAppendConfig}

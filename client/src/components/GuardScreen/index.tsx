@@ -12,10 +12,12 @@ export interface GuardScreenProps extends GuardProps {
   className?: string;
   style?: React.CSSProperties;
   background?: string;
+  /** 自定义 css */
+  customCss?: string;
 }
 
 export const GuardScreen = (props: GuardScreenProps) => {
-  const { style, className, background, ...guardProps } = props;
+  const { style, className, background, customCss, ...guardProps } = props;
   const [everythingReady, setEverythingReady] = useState(false);
   const [ctx, setCtx] = useState<SandBoxContext>();
   const handleLoaded = useCallback((ctx: any) => {
@@ -33,9 +35,11 @@ export const GuardScreen = (props: GuardScreenProps) => {
         <style>{guardStyle}</style>
         <style>{iframeDesktopStyle}</style>
         <style>{`:root{--authing-guard-bg:${background ?? "#fff"}}`}</style>
+        {customCss && <style>{customCss}</style>}
       </>
     );
-  }, [iframeDesktopStyle, guardStyle]);
+  }, [iframeDesktopStyle, guardStyle, background, customCss]);
+
   return (
     <SandBox
       className={className}
