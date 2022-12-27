@@ -12,9 +12,16 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
     .mask {
       display: none;
     }
+
+    &.no-border {
+      border: none;
+      display: none;
+    }
+
     &:hover .mask {
       position: absolute;
       width: 56px;
@@ -43,7 +50,8 @@
     border: none;
     outline: none;
     text-align: center;
-    > span {
+
+    >span {
       color: #215ae5;
     }
   }

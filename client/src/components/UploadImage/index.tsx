@@ -2,20 +2,22 @@ import "./index.less";
 
 import { Button, Modal, notification, Progress, Space, Upload } from "antd";
 import { RcFile } from "antd/es/upload";
+import classNames from "classnames";
 import { useCallback, useState } from "react";
 
+import { BASE_URL } from "@/utils/baseUrl";
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
-
-import defaultIcon from "./defaultIcon.svg";
 
 export interface UploadImageProps {
   value?: string;
   onChange?: (value: string | null) => void;
-  action: Parameters<typeof Upload>[0]["action"];
+  action?: Parameters<typeof Upload>[0]["action"];
 }
 
+const UPLOAD_ACTION = `${BASE_URL}/api/v2/upload?folder=photos`;
+
 export const UploadImage = (props: UploadImageProps) => {
-  const { value, onChange, action } = props;
+  const { value, onChange, action = UPLOAD_ACTION } = props;
   const [upLoading, setUpLoading] = useState(false);
   const [upLoadPercent, setUpLoadPercent] = useState(0);
   const handleBeforeUpload = useCallback((file: RcFile) => {
@@ -64,9 +66,10 @@ export const UploadImage = (props: UploadImageProps) => {
       onOk: () => onChange?.(null),
     });
   }, []);
+
   return (
     <Space className="upload-wrapper">
-      <div className="custom-icon">
+      <div className={classNames("custom-icon", { "no-border": !value })}>
         <div className="icon">
           {upLoading ? (
             <Progress
@@ -77,7 +80,7 @@ export const UploadImage = (props: UploadImageProps) => {
               percent={upLoadPercent}
             />
           ) : (
-            <img src={value ?? defaultIcon} width={54} />
+            <img src={value} width={54} />
           )}
         </div>
         {value && (

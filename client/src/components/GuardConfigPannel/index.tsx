@@ -4,6 +4,7 @@ import { Form, FormItemProps, Switch, Tooltip } from "antd";
 import classNames from "classnames";
 import { useCallback } from "react";
 
+import defaultIcon from "@/assets/default-loading-icon.svg";
 import env from "@/config/env";
 import {
   GuardGlobalStateProps,
@@ -56,6 +57,7 @@ export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
           </div>
         ),
         name: ["publicConfig", "customLoading"],
+        initialValue: defaultIcon,
         children: <UploadImage action={UPLOAD_ACTION} />,
       },
       {
