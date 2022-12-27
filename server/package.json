@@ -4,20 +4,23 @@
   "private": true,
   "scripts": {
     "start": "PORT=3010 nodemon ./app.js",
+    "migrate": "prisma db push",
     "postrestart": "npm install"
   },
   "dependencies": {
-    "authing-js-sdk": "4.23.36-rc.0",
+    "@prisma/client": "^4.8.0",
     "axios": "^1.2.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "debug": "^4.3.4",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "http-errors": "^2.0.0",
     "http-proxy-middleware": "^2.0.6",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
+    "prisma": "^4.8.0",
     "query-string": "^7.1.3"
   }
 }

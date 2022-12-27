@@ -25,3 +25,6 @@ yarn-error.log*
 
 .history
 *.sqlite
+
+server/.env
+server/package-lock.json
