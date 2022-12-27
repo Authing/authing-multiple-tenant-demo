@@ -5,7 +5,9 @@ const cors = require("cors");
 const debug = require("debug")("server:server");
 const http = require("http");
 
-const indexRouter = require("./routes/index");
+const usersRouter = require("./apis/users");
+const tenantsRouter = require("./apis/tenants");
+const adminsRouter = require("./apis/admins");
 
 const app = express();
 
@@ -15,7 +17,9 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/", indexRouter);
+app.use("/users", usersRouter);
+app.use("/tenants", tenantsRouter);
+app.use("/admins", adminsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -37,7 +41,7 @@ app.use(function (err, req, res, next) {
  * Get port from environment and store in Express.
  */
 
-var port = Number(process.env.PORT) || 3000;
+var port = Number(process.env.DEMO_SERVER_PORT) || 3010;
 app.set("port", port);
 
 /**

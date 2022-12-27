@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "PORT=3010 nodemon ./app.js",
+    "start": "nodemon ./app.js",
     "migrate": "prisma db push",
     "postrestart": "npm install"
   },
