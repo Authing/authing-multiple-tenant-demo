@@ -2,25 +2,27 @@ import "./index.less";
 
 import { Form, FormItemProps, Switch, Tooltip } from "antd";
 import classNames from "classnames";
-import { merge } from "lodash";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
 import env from "@/config/env";
 import {
   GuardGlobalStateProps,
   useGuardGlobalState,
 } from "@/context/guardContext";
+import { BASE_URL } from "@/utils/baseUrl";
 import { QuestionCircleOutlined, RightOutlined } from "@ant-design/icons";
 
+import { BackgroundPicker } from "../BackgroundPicker";
 import { Code } from "../Code";
 import { UploadImage } from "../UploadImage";
 import { default as defaultCodeCss } from "./default-code-css.css";
-import { BackgroundPicker } from "../BackgroundPicker";
 
 export interface GuardConfigPannelProps {
   className?: string;
   style?: React.CSSProperties;
 }
+
+const UPLOAD_ACTION = `${BASE_URL}/api/v2/upload?folder=photos`;
 
 export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
   const { style, className } = props;
@@ -44,7 +46,7 @@ export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
           </div>
         ),
         name: ["publicConfig", "loadingBackground"],
-        children: <BackgroundPicker />,
+        children: <BackgroundPicker action={UPLOAD_ACTION} />,
       },
       {
         label: (
@@ -54,7 +56,7 @@ export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
           </div>
         ),
         name: ["publicConfig", "customLoading"],
-        children: <UploadImage />,
+        children: <UploadImage action={UPLOAD_ACTION} />,
       },
       {
         label: (

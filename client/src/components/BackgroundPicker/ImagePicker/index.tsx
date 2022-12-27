@@ -13,7 +13,6 @@ import { RcFile, UploadFile } from "antd/es/upload";
 import classNames from "classnames";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import env from "@/config/env";
 import {
   DeleteOutlined,
   ExclamationCircleOutlined,
@@ -21,10 +20,11 @@ import {
   ReloadOutlined,
 } from "@ant-design/icons";
 
-const BASE_PATH = env("API_BASE_URL");
 export interface ImagePickerProps {
   value?: string;
   onChange?: (value: string | null) => void;
+  /** 图片上传地址 */
+  action: Parameters<typeof Upload>[0]["action"];
 }
 
 const ImageLayoutEnum = {
@@ -41,7 +41,7 @@ const REGEXPS = Object.entries(ImageLayoutEnum).map(
 );
 
 export const ImagePicker = (props: ImagePickerProps) => {
-  const { value, onChange } = props;
+  const { value, onChange, action } = props;
   const [upLoadReady, setUpLoadReady] = useState(true); // 是否可以上传
   const [upLoadPercent, setUpLoadPercent] = useState(0);
   const [uploadError, setUploadError] = useState(false);
@@ -154,7 +154,7 @@ export const ImagePicker = (props: ImagePickerProps) => {
         accept=".jpg,.jpeg,.png"
         listType="picture-card"
         showUploadList={false}
-        action={`${BASE_PATH}/api/v2/upload?folder=photos`}
+        action={action}
         beforeUpload={handleBeforeUpload}
         onChange={handleChange}
       >

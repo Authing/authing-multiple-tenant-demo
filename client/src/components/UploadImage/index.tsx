@@ -1,22 +1,21 @@
 import "./index.less";
 
 import { Button, Modal, notification, Progress, Space, Upload } from "antd";
-
-import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
-import env from "@/config/env";
-import { useCallback, useState } from "react";
-import defaultIcon from "./defaultIcon.svg";
 import { RcFile } from "antd/es/upload";
+import { useCallback, useState } from "react";
 
-const BASEURL = env("API_BASE_URL");
+import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
+
+import defaultIcon from "./defaultIcon.svg";
 
 export interface UploadImageProps {
   value?: string;
   onChange?: (value: string | null) => void;
+  action: Parameters<typeof Upload>[0]["action"];
 }
 
 export const UploadImage = (props: UploadImageProps) => {
-  const { value, onChange } = props;
+  const { value, onChange, action } = props;
   const [upLoading, setUpLoading] = useState(false);
   const [upLoadPercent, setUpLoadPercent] = useState(0);
   const handleBeforeUpload = useCallback((file: RcFile) => {
@@ -90,7 +89,7 @@ export const UploadImage = (props: UploadImageProps) => {
       <Upload
         accept=".jpg,.jpeg,.png,.svg"
         listType="text"
-        action={`${BASEURL}/api/v2/upload?folder=photos`}
+        action={action}
         showUploadList={false}
         beforeUpload={handleBeforeUpload}
         onChange={handleChange}
