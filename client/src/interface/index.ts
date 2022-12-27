@@ -44,9 +44,7 @@ export interface ApplicationConfig {
   oauthProviderEnabled: boolean;
   casProviderEnabled: boolean;
   oidcProviderEnabled: boolean;
-  loginTabs: string[];
   defaultLoginTab: string;
-  registerTabs: string[];
   defaultRegisterTab: string;
   socialConnections: string[];
   isDemo?: boolean;
@@ -103,6 +101,9 @@ export interface ApplicationConfig {
   };
   cssEnabled?: boolean;
   enableGuardVersionSwitch?: boolean;
+  ssoPageComponentDisplay?: any;
+  loginTabs?: any;
+  registerTabs?: any;
 }
 export interface GuardPageConfig {
   global: {

@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "/api",
-});
+import env from "./env";
 
-export default instance;
+axios.defaults.baseURL = env("API_BASE_URL");
