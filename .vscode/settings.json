@@ -29,6 +29,9 @@
   "[dotenv]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   },
+  "[less]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
 
 
 }
