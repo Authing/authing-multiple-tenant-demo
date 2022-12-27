@@ -1,0 +1,105 @@
+@ant-prefix: ant;
+
+.authing-mtd-image-picker-upload {
+    margin-top: 16px;
+    width: 100%;
+
+    &.@{ant-prefix}-upload-picture-card-wrapper {
+        &.no-dashborder .@{ant-prefix}-upload.@{ant-prefix}-upload-select {
+            border: 1px solid #eaebee;
+        }
+
+        .@{ant-prefix}-upload.@{ant-prefix}-upload-select {
+            width: 100%;
+            min-height: 170px;
+            background: #f7f8fa;
+            border-radius: 4px;
+            overflow: hidden;
+
+            &:hover {
+                cursor: auto;
+                border-color: #d9d9d9;
+            }
+        }
+
+        .upload-cover-title {
+            color: #4E5969;
+            font-weight: 500;
+            font-size: 16;
+        }
+
+        .upload-cover-desc {
+            color: #86909C;
+            font-size: 12;
+        }
+    }
+
+    .mtd-picture-mask {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        color: white;
+        font-style: normal;
+        font-weight: 400;
+
+        .mtd-picture {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mtd-picture-model {
+            display: none;
+        }
+
+        &:hover {
+            .mtd-picture::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                background: rgba(0, 0, 0, 0.2);
+            }
+
+            .mtd-picture-model {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 2;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .mtd-picture-delete,
+            .mtd-picture-reload {
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px;
+
+                .anticon {
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+
+    .mtd-upload-error {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.authing-mtd-image-picker-select {
+    margin-top: 10px;
+}

@@ -49,7 +49,7 @@ export const UploadImage = (props: UploadImageProps) => {
         setUpLoading(false);
         setUpLoadPercent(0);
         notification.error({
-          message: "上传失败，请检查网络后重试",
+          message: "上传失败，请稍后重试",
         });
       }
     },
