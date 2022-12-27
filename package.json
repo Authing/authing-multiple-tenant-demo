@@ -22,6 +22,6 @@
   "author": "authing",
   "license": "ISC",
   "dependencies": {
-    "pnpm": "^7.18.2"
+    "pnpm": "^7.20.0"
   }
 }

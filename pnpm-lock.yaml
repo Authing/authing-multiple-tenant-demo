@@ -1,15 +1,15 @@
 lockfileVersion: 5.4
 
 specifiers:
-  pnpm: ^7.18.1
+  pnpm: ^7.20.0
 
 dependencies:
-  pnpm: 7.18.1
+  pnpm: 7.20.0
 
 packages:
 
-  /pnpm/7.18.1:
-    resolution: {integrity: sha512-GulnWxFW1dej1sSiju1FlYtvWIYa35ZvbTk9F8jOo+1GgJEVdx1ObLaZCApd2I4IB+jozyNWzInEdV0hQgUq0Q==}
+  /pnpm/7.20.0:
+    resolution: {integrity: sha512-klGp+P0sxw1f6OYwJtl0PcoYiIHVhMZdh9e2B8maUmzOGmAj0NL9jKaKPfIX4kKfyQcWeADm46Z+4CKtabZqSw==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: false
