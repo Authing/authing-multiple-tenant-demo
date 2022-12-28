@@ -3,7 +3,7 @@ import { CreateOrganization } from "@/pages/CreateOrganization";
 import { DocExplain } from "@/pages/DocExplain";
 import { GetStart } from "@/pages/GetStart";
 import { InviteUser } from "@/pages/InviteUser";
-import { PleaseLogin } from "@/pages/PleaseLogin";
+import { Home } from "@/pages/Home";
 import { TravelStep } from "@/pages/TravelStep";
 import { StepConfig, STEP_KEYS } from "@/pages/TravelStep/stepConfig";
 import { Navigate, RouteObject } from "react-router-dom";
@@ -15,11 +15,11 @@ export default [
     id: "root",
     // element: <Layout />,
     children: [
-      { index: true, element: <Navigate to={"/please-login"} /> },
+      { index: true, element: <Navigate to="/home" /> },
       {
-        path: "/please-login",
+        path: "/home",
         id: "login",
-        element: <PleaseLogin />,
+        element: <Home />,
       },
       {
         path: "/step",
