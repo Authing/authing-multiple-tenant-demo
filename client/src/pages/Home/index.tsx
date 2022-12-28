@@ -6,13 +6,14 @@ import { Button } from "antd";
 import { useCallback } from "react";
 import { BASE_URL } from "@/utils/baseUrl";
 import { useNavigate } from "react-router-dom";
+import { StepConfig, STEPEnum } from "../TravelStep/stepConfig";
 
 export const Home = () => {
   const nav = useNavigate();
   //TODO: 判断是否登录，有登录态则重定向后续页面
   const handleClick = useCallback(() => {
     // window.location.href = `${BASE_URL}/login`;
-    nav(`/step/${1}`);
+    nav(`/step/${StepConfig[STEPEnum.step1].path}`);
   }, []);
   return (
     <div className="authing-mtd-please-login">

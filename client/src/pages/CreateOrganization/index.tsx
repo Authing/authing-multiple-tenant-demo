@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import { UploadImage } from "@/components/UploadImage";
 
-import { STEP_KEYS, StepConfig } from "../TravelStep/stepConfig";
+import { STEPEnum, StepConfig } from "../TravelStep/stepConfig";
 
 export const CreateOrganization = () => {
   const [form] = Form.useForm();
@@ -34,7 +34,7 @@ export const CreateOrganization = () => {
   const handleSubmit = useCallback(() => {
     const data = form.getFieldsValue();
     console.log("提交表单：", data);
-    nav(`/step/${StepConfig[STEP_KEYS.INVITE_USER].path}`);
+    nav(`/step/${StepConfig[STEPEnum.step2].path}`);
   }, []);
   const handleClear = useCallback(() => {
     form.resetFields();
