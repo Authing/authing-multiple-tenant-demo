@@ -1,11 +1,18 @@
-import { UploadImage } from "@/components/UploadImage";
+import "./index.less";
+
 import { Button, Col, Form, FormItemProps, Input, Row, Space } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useCallback, useMemo } from "react";
-import "./index.less";
+import { useNavigate } from "react-router-dom";
+
+import { UploadImage } from "@/components/UploadImage";
+
+import { STEP_KEYS, StepConfig } from "../TravelStep/stepConfig";
 
 export const CreateOrganization = () => {
   const [form] = Form.useForm();
+  const nav = useNavigate();
+
   const formItems = useMemo(
     () =>
       [
@@ -27,6 +34,7 @@ export const CreateOrganization = () => {
   const handleSubmit = useCallback(() => {
     const data = form.getFieldsValue();
     console.log("提交表单：", data);
+    nav(`/step/${StepConfig[STEP_KEYS.INVITE_USER].path}`);
   }, []);
   const handleClear = useCallback(() => {
     form.resetFields();

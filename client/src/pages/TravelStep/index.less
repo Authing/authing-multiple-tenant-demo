@@ -1,0 +1,36 @@
+.authing-mtd-travel-step {
+    width: var(--content-width);
+    height: calc(100vh - 10px);
+    margin: 10px auto 0;
+    position: relative;
+    --travel-step-header-height: 96px;
+    --travel-step-footer-height: 160px;
+
+
+
+    .mtd-header {
+        width: 100%;
+        height: var(--travel-step-header-height);
+    }
+
+    .mtd-main {
+        overflow: auto;
+    }
+
+    &.has-header .mtd-main {
+        height: calc(100% - var(--travel-step-header-height));
+    }
+
+    &.has-header.has-footer .mtd-main {
+        height: calc(100% - var(--travel-step-header-height) - var(--travel-step-footer-height));
+    }
+
+    .mtd-footer {
+        width: 100%;
+        height: var(--travel-step-footer-height);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 40px;
+    }
+}
