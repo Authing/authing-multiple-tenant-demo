@@ -8,6 +8,7 @@ const http = require("http");
 const usersRouter = require("./apis/users");
 const tenantsRouter = require("./apis/tenants");
 const adminsRouter = require("./apis/admins");
+const loginRouter = require("./apis/login");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/users", usersRouter);
 app.use("/tenants", tenantsRouter);
 app.use("/admins", adminsRouter);
+app.use("/login", loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
