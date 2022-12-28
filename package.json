@@ -5,7 +5,6 @@
   "scripts": {
     "install": "pnpm install:client && pnpm install:server",
     "start": " pnpm start:client & pnpm start:server",
-    "prepare": "npm i pnpm",
     "prestart": "pnpm install",
     "install:client": "cd ./client && pnpm install && cd ..",
     "install:server": "cd ./server && pnpm install && cd ..",

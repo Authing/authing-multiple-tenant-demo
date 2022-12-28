@@ -442,17 +442,6 @@ packages:
       '@lezer/common': 1.0.2
     dev: false
 
-  /@codemirror/autocomplete/6.4.0_@codemirror+state@6.1.4:
-    resolution: {integrity: sha512-HLF2PnZAm1s4kGs30EiqKMgD7XsYaQ0XJnMR0rofEWQ5t5D60SfqpDIkIh1ze5tiEbyUWm8+VJ6W1/erVvBMIA==}
-    peerDependencies:
-      '@codemirror/state': ^6.0.0
-    dependencies:
-      '@codemirror/language': 6.3.2
-      '@codemirror/state': 6.1.4
-      '@codemirror/view': 6.7.1
-      '@lezer/common': 1.0.2
-    dev: false
-
   /@codemirror/commands/6.1.2:
     resolution: {integrity: sha512-sO3jdX1s0pam6lIdeSJLMN3DQ6mPEbM4yLvyKkdqtmd/UDwhXA5+AwFJ89rRXm6vTeOXBsE5cAmlos/t7MJdgg==}
     dependencies:
@@ -1131,7 +1120,7 @@ packages:
   /@uiw/codemirror-extensions-basic-setup/4.19.4:
     resolution: {integrity: sha512-iUni1tTpuSO6j1NShEo01eYGtED+9OYKyQ4Y54fBxluhZCT1Z/25sP05Im2rpt/VHE1fReRaC28FEBR5phBAfA==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.0_@codemirror+state@6.1.4
+      '@codemirror/autocomplete': 6.4.0
       '@codemirror/commands': 6.1.2
       '@codemirror/language': 6.3.2
       '@codemirror/lint': 6.1.0
