@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
-    "@authing/react18-ui-components": "^4.2.0",
+    "@authing/guard-react18": "^5.1.2",
     "@uiw/codemirror-extensions-color": "^4.19.4",
     "@uiw/codemirror-extensions-langs": "^4.19.4",
     "@uiw/codemirror-theme-material": "^4.19.4",
