@@ -8,12 +8,18 @@ import { GuardConfigPannel } from "@/components/GuardConfigPannel";
 import { GuardScreen } from "@/components/GuardScreen";
 import env from "@/config/env";
 import { useGuardGlobalState } from "@/context/guardContext";
-import { GuardAppendConfig } from "@authing/react18-ui-components";
+import {
+  GuardAppendConfig,
+  GuardOptions,
+  GuardProvider,
+  useGuard,
+} from "@authing/guard-react18";
 
 export const BrandSetting = () => {
   const appId = "63a43dea37b791ee725a2338";
   const tenantId = "";
   const [guardState, setGuardState] = useGuardGlobalState();
+  const guard = useGuard();
 
   useEffect(() => {
     getPublicConfig(appId).then((res) => {
@@ -22,7 +28,6 @@ export const BrandSetting = () => {
     });
   }, [appId]);
 
-  const guardConfig = useMemo(() => ({ host: env("GUARD_HOST") }), []);
   const appendConfig = useMemo(
     () => ({
       ...(guardState?.publicConfig && {
@@ -35,6 +40,15 @@ export const BrandSetting = () => {
     [guardState]
   );
 
+  const guardConfig = useMemo<GuardOptions>(
+    () => ({
+      appId,
+      host: env("GUARD_HOST"),
+      tenantId,
+      appendConfig: appendConfig as GuardAppendConfig,
+    }),
+    [appId, tenantId, appendConfig]
+  );
   const customCss = useMemo(() => {
     if (!guardState?.publicConfig?.cssEnabled) return "";
     return guardState?.publicConfig?.css;
@@ -42,8 +56,6 @@ export const BrandSetting = () => {
   const handleSubmit = useCallback(() => {
     console.log("保存配置：", guardState);
   }, [guardState]);
-
-  console.log("getPUblic", appendConfig);
 
   return (
     <div className="authing_mtd-brand-wrapper">
@@ -56,15 +68,14 @@ export const BrandSetting = () => {
       </Row>
       <Row className="authing_mtd-brand-setting">
         <Col flex="auto">
-          <GuardScreen
-            stopPropagation
-            className="authing_mtd-guard-screen"
-            background={guardState?.publicConfig?.loadingBackground}
-            customCss={customCss!}
-            appId={appId}
-            config={guardConfig}
-            appendConfig={appendConfig as GuardAppendConfig}
-          />
+          <GuardProvider {...guardConfig}>
+            <GuardScreen
+              stopPropagation
+              className="authing_mtd-guard-screen"
+              background={guardState?.publicConfig?.loadingBackground}
+              customCss={customCss!}
+            />
+          </GuardProvider>
         </Col>
         <Col flex="400px">
           <GuardConfigPannel className="authing_mtd-gaurd-config-pannel" />

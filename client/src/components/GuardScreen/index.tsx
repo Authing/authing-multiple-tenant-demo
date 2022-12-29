@@ -3,12 +3,12 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { GuardPanelFooter } from "@/components/GuardPanelFooter";
 import { SandBox, SandBoxContext } from "@/components/SandBox";
-import { Guard, GuardProps } from "@authing/react18-ui-components";
+import { useGuard } from "@authing/guard-react18";
 import { default as guardStyle } from "@authing/react18-ui-components/lib/index.min.css";
 
 import { default as iframeDesktopStyle } from "./iframe-desktop-style.css";
 
-export interface GuardScreenProps extends GuardProps {
+export interface GuardScreenProps {
   className?: string;
   style?: React.CSSProperties;
   background?: string;
@@ -19,16 +19,10 @@ export interface GuardScreenProps extends GuardProps {
 }
 
 export const GuardScreen = (props: GuardScreenProps) => {
-  const {
-    style,
-    className,
-    background,
-    customCss,
-    stopPropagation,
-    ...guardProps
-  } = props;
+  const { style, className, background, customCss, stopPropagation } = props;
   const [everythingReady, setEverythingReady] = useState(false);
   const [ctx, setCtx] = useState<SandBoxContext>();
+  const guard = useGuard();
   const handleLoaded = useCallback((ctx: any) => {
     setCtx(ctx);
   }, []);
@@ -61,46 +55,53 @@ export const GuardScreen = (props: GuardScreenProps) => {
     };
   }, [stopPropagation]);
 
+  useEffect(() => {
+    if (!everythingReady) return;
+    const selector = ctx?.document?.querySelector?.("#authing-guard-container");
+    guard.start(selector as any);
+  }, [guard, everythingReady]);
+
   return (
-    <SandBox
-      className={className}
-      style={style}
-      headContent={iframeHeadDOM}
-      onLoaded={handleLoaded}
-    >
-      <div
-        id="root"
-        style={{
-          background: "#f8f9ff",
-          display: "flex",
-          justifyContent: "center",
-        }}
+    <>
+      <SandBox
+        className={className}
+        style={style}
+        headContent={iframeHeadDOM}
+        onLoaded={handleLoaded}
       >
-        <div className="ant-layout  authing-guard-layout authing-user-portal-layout">
-          {everythingReady ? (
-            <>
-              {/* 该处 DOM 结构固定 */}
-              <div className="react-joyride"></div>
-              <div className="guardContainer">
-                <Guard {...guardProps} />
-                <GuardPanelFooter />
+        <div
+          id="root"
+          style={{
+            background: "#f8f9ff",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <div className="ant-layout  authing-guard-layout authing-user-portal-layout">
+            {everythingReady ? (
+              <>
+                <div className="guardContainer">
+                  <div id="authing-guard-container"></div>
+                  <GuardPanelFooter />
+                </div>
+              </>
+            ) : (
+              <div
+                style={{
+                  top: 0,
+                  left: 0,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Spin />
               </div>
-            </>
-          ) : (
-            <div
-              style={{
-                top: 0,
-                left: 0,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Spin />
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-    </SandBox>
+      </SandBox>
+      {/* <div id="authing-guard-container"></div> */}
+    </>
   );
 };
