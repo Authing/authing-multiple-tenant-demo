@@ -11,16 +11,16 @@ import { Layout } from "../components/Layout";
 
 export default [
   {
+    path: "/home",
+    id: "home",
+    element: <Home />,
+  },
+  {
     path: "/",
     id: "root",
-    // element: <Layout />,
+    element: <Layout />,
     children: [
       { index: true, element: <Navigate to="/home" /> },
-      {
-        path: "/home",
-        id: "login",
-        element: <Home />,
-      },
       {
         path: "/step",
         element: <TravelStep />,
