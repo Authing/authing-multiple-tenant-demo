@@ -46,7 +46,7 @@ export const BrandSetting = () => {
   console.log("getPUblic", appendConfig);
 
   return (
-    <div className="authing-mtd-brand-wrapper">
+    <div className="authing_mtd-brand-wrapper">
       <Row justify="end">
         <Col>
           <Button type="primary" onClick={handleSubmit}>
@@ -54,11 +54,11 @@ export const BrandSetting = () => {
           </Button>
         </Col>
       </Row>
-      <Row className="authing-mtd-brand-setting">
+      <Row className="authing_mtd-brand-setting">
         <Col flex="auto">
           <GuardScreen
             stopPropagation
-            className="authing-mtd-guard-screen"
+            className="authing_mtd-guard-screen"
             background={guardState?.publicConfig?.loadingBackground}
             customCss={customCss!}
             appId={appId}
@@ -67,7 +67,7 @@ export const BrandSetting = () => {
           />
         </Col>
         <Col flex="400px">
-          <GuardConfigPannel className="authing-mtd-gaurd-config-pannel" />
+          <GuardConfigPannel className="authing_mtd-gaurd-config-pannel" />
         </Col>
       </Row>
     </div>

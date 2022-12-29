@@ -18,12 +18,11 @@ export const Layout = () => {
   const data: LayoutDataType = finalMatch?.data ?? {};
 
   return (
-    <AntLayout className="authing-mtd-layout">
-      {(data?.header ?? true) && <Header {...(data?.header as any)} />}
+    <AntLayout className="authing_mtd-layout">
+      <Header {...(data?.header as any)} />
       <Content>
         <Outlet />
       </Content>
-      {(data?.footer ?? true) && <Footer {...(data?.footer as any)} />}
     </AntLayout>
   );
 };

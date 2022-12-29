@@ -6,7 +6,7 @@ export interface FooterProps {}
 
 export default (props: FooterProps) => {
   return (
-    <Layout.Footer className="authing-mtd-footer">
+    <Layout.Footer className="authing_mtd-footer">
       <img src={PowerBy} />
     </Layout.Footer>
   );

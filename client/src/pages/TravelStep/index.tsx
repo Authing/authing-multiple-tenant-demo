@@ -20,7 +20,7 @@ export const TravelStep = () => {
   const footer = optional(config?.footer);
   return (
     <div
-      className={classNames("authing-mtd-travel-step", {
+      className={classNames("authing_mtd-travel-step", {
         "has-header": !!header,
         "has-footer": !!footer,
       })}

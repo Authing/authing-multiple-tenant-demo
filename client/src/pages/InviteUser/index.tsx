@@ -73,7 +73,7 @@ export const InviteUser = () => {
     []
   );
   return (
-    <div className="authing-mtd-invite-user">
+    <div className="authing_mtd-invite-user">
       <Form
         className="mtd-form"
         form={form}

@@ -15,7 +15,7 @@ export default (props: HeaderProps) => {
     },
   ];
   return (
-    <Layout.Header className="mtd-header">
+    <Layout.Header className="authing_mtd-header">
       <div className="mtd-header-btns">
         {buttons.map((it) => (
           <Button type="link" {...it} />

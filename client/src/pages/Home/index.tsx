@@ -16,7 +16,7 @@ export const Home = () => {
     nav(`/step/${StepConfig[STEPEnum.step1].path}`);
   }, []);
   return (
-    <div className="authing-mtd-please-login">
+    <div className="authing_mtd-please-login">
       <img src={TenantDefaultDoor} alt="" />
       <h3>请先注册 / 登录，开启 Authing 多租户之旅</h3>
       <Button

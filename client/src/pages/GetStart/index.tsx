@@ -8,7 +8,7 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 
 export const GetStart = () => {
   return (
-    <div className="authing-mtd-get-started">
+    <div className="authing_mtd-get-started">
       <img className="mtd-icon" src={TenantGetStartedIcon} />
       <h2>🎉 恭喜你已成功登录“天气预报应用”</h2>
       <p className="mtd-desc">

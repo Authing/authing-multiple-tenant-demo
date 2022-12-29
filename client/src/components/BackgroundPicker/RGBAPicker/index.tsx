@@ -22,7 +22,7 @@ export const RGBAPicker = (props: RGBAPickerProps) => {
   );
 
   return (
-    <div className="authing-mtd-rgba-picker-color">
+    <div className="authing_mtd-rgba-picker-color">
       <Popover content={<SketchPicker color={value} onChange={handleChange} />}>
         <div className="color-show-area" style={{ backgroundColor: value }} />
       </Popover>

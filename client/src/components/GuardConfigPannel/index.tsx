@@ -93,7 +93,7 @@ export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
             <span className="mtd-label-desc">实现更精细的登录样式配置</span>
           </div>
         ),
-        className: "authing-mtd-switch-css",
+        className: "authing_mtd-switch-css",
         name: ["publicConfig", "cssEnabled"],
         valuePropName: "checked",
         children: <Switch />,
@@ -102,13 +102,13 @@ export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
         noStyle: true,
         name: ["publicConfig", "css"],
         initialValue: defaultCodeCss,
-        children: <Code className="authing-mtd-code-css" mode="css" />,
+        children: <Code className="authing_mtd-code-css" mode="css" />,
       },
     ] as FormItemProps[]
   ).filter(Boolean);
   return (
     <div
-      className={classNames("authing-mtd-guard-config-pannel", className)}
+      className={classNames("authing_mtd-guard-config-pannel", className)}
       style={style}
     >
       <Form

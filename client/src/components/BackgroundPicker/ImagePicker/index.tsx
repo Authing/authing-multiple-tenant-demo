@@ -148,7 +148,7 @@ export const ImagePicker = (props: ImagePickerProps) => {
   return (
     <>
       <Upload
-        className={classNames("authing-mtd-image-picker-upload", {
+        className={classNames("authing_mtd-image-picker-upload", {
           "no-dashborder": !!value || !upLoadReady,
         })}
         accept=".jpg,.jpeg,.png"
@@ -213,7 +213,7 @@ export const ImagePicker = (props: ImagePickerProps) => {
       {value && (
         <Select
           value={imageLayout}
-          className="authing-mtd-image-picker-select"
+          className="authing_mtd-image-picker-select"
           options={ImageLayoutOptions}
           onChange={handleSelect}
         ></Select>

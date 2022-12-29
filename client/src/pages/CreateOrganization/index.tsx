@@ -40,7 +40,7 @@ export const CreateOrganization = () => {
     form.resetFields();
   }, [form]);
   return (
-    <div className="authing-mtd-create-organization">
+    <div className="authing_mtd-create-organization">
       <Form
         className="mtd-form"
         form={form}
