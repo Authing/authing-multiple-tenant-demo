@@ -10,11 +10,10 @@ const { Content } = AntLayout;
 
 export interface LayoutDataType {
   header?: boolean | HeaderProps;
-  footer?: boolean | FooterProps;
 }
 
 export const Layout = () => {
-  const finalMatch = useMatches().at(-1);
+  const finalMatch = useMatches()?.at(-1);
   const data: LayoutDataType = finalMatch?.data ?? {};
 
   return (
