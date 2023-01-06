@@ -5,7 +5,7 @@ import { GetStart } from "@/pages/GetStart";
 import { InviteUser } from "@/pages/InviteUser";
 import { Home } from "@/pages/Home";
 import { TravelStep } from "@/pages/TravelStep";
-import { StepConfig, STEPEnum } from "@/pages/TravelStep/stepConfig";
+import { StepConfig, STEPS } from "@/pages/TravelStep/stepConfig";
 import { Navigate, RouteObject } from "react-router-dom";
 import { Layout } from "../components/Layout";
 
@@ -27,28 +27,26 @@ export default [
         children: [
           {
             index: true,
-            element: (
-              <Navigate to={`/step/${StepConfig[STEPEnum.step1].path}`} />
-            ),
+            element: <Navigate to={`/step/${StepConfig[STEPS.step1].path}`} />,
           },
           {
-            path: `/step/${StepConfig[STEPEnum.step1].path}`,
-            id: STEPEnum.step1,
+            path: `/step/${StepConfig[STEPS.step1].path}`,
+            id: STEPS.step1,
             element: <CreateOrganization />,
           },
           {
-            path: `/step/${StepConfig[STEPEnum.step2].path}`,
-            id: STEPEnum.step2,
+            path: `/step/${StepConfig[STEPS.step2].path}`,
+            id: STEPS.step2,
             element: <InviteUser />,
           },
           {
-            path: `/step/${StepConfig[STEPEnum.step3].path}`,
-            id: STEPEnum.step3,
+            path: `/step/${StepConfig[STEPS.step3].path}`,
+            id: STEPS.step3,
             element: <BrandSetting />,
           },
           {
-            path: `/step/${StepConfig[STEPEnum.step4].path}`,
-            id: STEPEnum.step4,
+            path: `/step/${StepConfig[STEPS.step4].path}`,
+            id: STEPS.step4,
             element: <DocExplain />,
           },
         ],

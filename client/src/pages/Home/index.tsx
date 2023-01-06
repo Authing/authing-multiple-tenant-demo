@@ -1,19 +1,18 @@
 import "./index.less";
-import "@authing/react18-ui-components/lib/index.min.css";
 
 import TenantDefaultDoor from "@/assets/tenant-default-door.svg";
 import { Button } from "antd";
 import { useCallback } from "react";
 import { BASE_URL } from "@/utils/baseUrl";
 import { useNavigate } from "react-router-dom";
-import { StepConfig, STEPEnum } from "../TravelStep/stepConfig";
+import { StepConfig, STEPS } from "../TravelStep/stepConfig";
 
 export const Home = () => {
   const nav = useNavigate();
   //TODO: 判断是否登录，有登录态则重定向后续页面
   const handleClick = useCallback(() => {
     // window.location.href = `${BASE_URL}/login`;
-    nav(`/step/${StepConfig[STEPEnum.step1].path}`);
+    nav(`/step/${StepConfig[STEPS.step1].path}`);
   }, []);
   return (
     <div className="authing_mtd-please-login">

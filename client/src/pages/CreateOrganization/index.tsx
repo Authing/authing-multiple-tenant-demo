@@ -6,8 +6,9 @@ import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { UploadImage } from "@/components/UploadImage";
+import { DefaultTenantLogo } from "@/constants";
 
-import { STEPEnum, StepConfig } from "../TravelStep/stepConfig";
+import { StepConfig, STEPS } from "../TravelStep/stepConfig";
 
 export const CreateOrganization = () => {
   const [form] = Form.useForm();
@@ -18,7 +19,7 @@ export const CreateOrganization = () => {
       [
         {
           label: <h4>组织名称</h4>,
-          required: true,
+          rules: [{ required: true, message: "请输入企业或组织机构名称" }],
           name: "name",
           children: <Input placeholder="请输入企业或组织机构名称" />,
         },
@@ -27,15 +28,21 @@ export const CreateOrganization = () => {
           name: "descption",
           children: <TextArea placeholder="请输入组织描述" />,
         },
-        { label: <h4>组织头像</h4>, name: "logo", children: <UploadImage /> },
+        {
+          label: <h4>组织头像</h4>,
+          name: "logo",
+          initialValue: DefaultTenantLogo,
+          children: <UploadImage />,
+        },
       ] as FormItemProps[],
     []
   );
   const handleSubmit = useCallback(() => {
-    const data = form.getFieldsValue();
-    console.log("提交表单：", data);
-    nav(`/step/${StepConfig[STEPEnum.step2].path}`);
-  }, []);
+    form.validateFields().then((data) => {
+      console.log("提交表单：", data);
+    });
+    // nav(`/step/${StepConfig[STEPEnum.step2].path}`);
+  }, [form]);
   const handleClear = useCallback(() => {
     form.resetFields();
   }, [form]);

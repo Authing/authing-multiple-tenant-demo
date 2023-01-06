@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { GuardPanelFooter } from "@/components/GuardPanelFooter";
 import { SandBox, SandBoxContext } from "@/components/SandBox";
 import { useGuard } from "@authing/guard-react18";
-import { default as guardStyle } from "@authing/react18-ui-components/lib/index.min.css";
+import { default as guardStyle } from "@authing/guard-react18/dist/esm/guard.min.css";
 
 import { default as iframeDesktopStyle } from "./iframe-desktop-style.css";
 
