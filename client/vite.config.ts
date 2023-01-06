@@ -12,6 +12,7 @@ export default defineConfig({
   envPrefix: "Authing_",
   server: {
     port: 3009,
+    open: true,
     proxy: {
       "^/authing-tenant/.*": {
         target: "http://localhost:3010",
