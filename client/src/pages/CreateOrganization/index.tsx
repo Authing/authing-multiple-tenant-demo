@@ -1,6 +1,6 @@
 import "./index.less";
 
-import { Button, Col, Form, FormItemProps, Input, Row, Space } from "antd";
+import { Button, Form, FormItemProps, Input, Row, Space } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
@@ -40,8 +40,8 @@ export const CreateOrganization = () => {
   const handleSubmit = useCallback(() => {
     form.validateFields().then((data) => {
       console.log("提交表单：", data);
+      nav(`/step/${StepConfig[STEPS.step2].path}`);
     });
-    // nav(`/step/${StepConfig[STEPEnum.step2].path}`);
   }, [form]);
   const handleClear = useCallback(() => {
     form.resetFields();

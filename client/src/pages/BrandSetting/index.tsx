@@ -8,20 +8,19 @@ import { GuardConfigPannel } from "@/components/GuardConfigPannel";
 import { GuardScreen } from "@/components/GuardScreen";
 import env from "@/config/env";
 import { useGuardGlobalState } from "@/context/guardContext";
+import { useStepGlobalState } from "@/context/stepContext";
 import {
   GuardAppendConfig,
   GuardOptions,
   GuardProvider,
-  useGuard,
 } from "@authing/guard-react18";
 
 export const BrandSetting = () => {
-  const appId = "63a43dea37b791ee725a2338";
-  const tenantId = "";
+  const [{ appId, tenantId }] = useStepGlobalState();
   const [guardState, setGuardState] = useGuardGlobalState();
-  const guard = useGuard();
 
   useEffect(() => {
+    if (!appId) return;
     getPublicConfig(appId).then((res) => {
       const data = res?.data?.data;
       setGuardState({ publicConfig: data ?? {} });
@@ -49,6 +48,7 @@ export const BrandSetting = () => {
     }),
     [appId, tenantId, appendConfig]
   );
+
   const customCss = useMemo(() => {
     if (!guardState?.publicConfig?.cssEnabled) return "";
     return guardState?.publicConfig?.css;
@@ -68,14 +68,16 @@ export const BrandSetting = () => {
       </Row>
       <Row className="authing_mtd-brand-setting">
         <Col flex="auto">
-          <GuardProvider {...guardConfig}>
-            <GuardScreen
-              stopPropagation
-              className="authing_mtd-guard-screen"
-              background={guardState?.publicConfig?.loadingBackground}
-              customCss={customCss!}
-            />
-          </GuardProvider>
+          {guardConfig?.appId && (
+            <GuardProvider {...guardConfig}>
+              <GuardScreen
+                stopPropagation
+                className="authing_mtd-guard-screen"
+                background={guardState?.publicConfig?.loadingBackground}
+                customCss={customCss!}
+              />
+            </GuardProvider>
+          )}
         </Col>
         <Col flex="400px">
           <GuardConfigPannel className="authing_mtd-gaurd-config-pannel" />
