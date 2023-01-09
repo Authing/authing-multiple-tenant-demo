@@ -1,7 +1,7 @@
-declare type AuthingResponse = {
+declare type AuthingResponse<T = any> = {
   code: number;
   statusCode: number;
   message: string;
   apiCode?: number;
-  data: any;
+  data: T;
 };
