@@ -17,6 +17,7 @@ export default defineConfig({
       "^/authing-tenant/.*": {
         target: "http://localhost:3010",
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/authing-tenant/, ""),
       },
     },
   },
