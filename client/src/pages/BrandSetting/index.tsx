@@ -1,7 +1,7 @@
 import "./index.less";
 
-import { Button, Col, Row } from "antd";
-import { useCallback, useEffect, useMemo } from "react";
+import { Button, Col, Modal, Row, Spin } from "antd";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { getPublicConfig } from "@/api";
 import { GuardConfigPannel } from "@/components/GuardConfigPannel";
@@ -14,18 +14,20 @@ import {
   GuardOptions,
   GuardProvider,
 } from "@authing/guard-react18";
+import { updateBrandingConfig } from "@/api/branding";
 
 export const BrandSetting = () => {
   const [{ appId, tenantId }] = useStepGlobalState();
   const [guardState, setGuardState] = useGuardGlobalState();
+  const [retry, setRetry] = useState({});
 
   useEffect(() => {
     if (!appId) return;
     getPublicConfig(appId).then((res) => {
-      const data = res?.data?.data;
+      const data = res?.data;
       setGuardState({ publicConfig: data ?? {} });
     });
-  }, [appId]);
+  }, [appId, retry]);
 
   const appendConfig = useMemo(
     () => ({
@@ -53,8 +55,18 @@ export const BrandSetting = () => {
     if (!guardState?.publicConfig?.cssEnabled) return "";
     return guardState?.publicConfig?.css;
   }, [guardState]);
+
   const handleSubmit = useCallback(() => {
-    console.log("保存配置：", guardState);
+    Modal.confirm({
+      title: "提示",
+      content: "保存后，所有配置立即发布生效，是否确定？",
+      onOk: async () => {
+        await updateBrandingConfig({
+          update: guardState?.publicConfig,
+        });
+        setRetry({});
+      },
+    });
   }, [guardState]);
 
   return (
