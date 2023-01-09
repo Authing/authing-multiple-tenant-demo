@@ -15,7 +15,9 @@ loginsRouter.get("/", async function (req, res) {
 loginsRouter.get("/callback", async function (req, res) {
   console.log(req.query);
   res.statusCode = 200;
-  res.json(req.query);
+  res.redirect(
+    process.env.DEMO_FRONTEND_CALLBACK_URL + `?code=${req.query.code}`
+  );
 });
 
 module.exports = loginsRouter;
