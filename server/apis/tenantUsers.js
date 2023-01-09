@@ -1,11 +1,11 @@
 var Router = require("express").Router;
 var authingRequest = require("../authing");
-var tenantsRouter = Router();
+var tenantUsersRouter = Router();
 
-tenantsRouter.post("/create", async function (req, res) {
+tenantUsersRouter.post("/invite", async function (req, res) {
   var result = await authingRequest(
     "POST",
-    "/api/v3/create-tenant",
+    "/api/v2/email/inviteTenantUser",
     req.body,
     req.headers["authorization"]
   );
@@ -13,10 +13,10 @@ tenantsRouter.post("/create", async function (req, res) {
   res.json(result);
 });
 
-tenantsRouter.post("/update-config", async function (req, res) {
+tenantUsersRouter.post("/generate-invite-link", async function (req, res) {
   var result = await authingRequest(
     "POST",
-    "/api/v3/update-userpool-tenant-config",
+    "/api/v3/generate-invite-tenant-user-link",
     req.body,
     req.headers["authorization"]
   );
@@ -24,4 +24,4 @@ tenantsRouter.post("/update-config", async function (req, res) {
   res.json(result);
 });
 
-module.exports = tenantsRouter;
+module.exports = tenantUsersRouter;

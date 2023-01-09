@@ -5,9 +5,9 @@ const cors = require("cors");
 const debug = require("debug")("server:server");
 const http = require("http");
 
-const usersRouter = require("./apis/users");
 const tenantsRouter = require("./apis/tenants");
-const adminsRouter = require("./apis/admins");
+const tenantUsersRouter = require("./apis/tenantUsers");
+const applicationsRouter = require("./apis/applications");
 const loginRouter = require("./apis/login");
 
 const app = express();
@@ -18,9 +18,9 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/users", usersRouter);
 app.use("/tenants", tenantsRouter);
-app.use("/admins", adminsRouter);
+app.use("/tenant-users", tenantUsersRouter);
+app.use("/applications", applicationsRouter);
 app.use("/login", loginRouter);
 
 // catch 404 and forward to error handler
