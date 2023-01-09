@@ -1,16 +1,20 @@
 import "./index.less";
 
-import { Button, Form, FormItemProps, Input, Row, Space } from "antd";
+import { Button, Form, FormItemProps, Input, notification, Space } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { createOrg } from "@/api/organization";
 import { UploadImage } from "@/components/UploadImage";
 import { DefaultTenantLogo } from "@/constants";
+import { useStepGlobalState } from "@/context/stepContext";
 
 import { StepConfig, STEPS } from "../TravelStep/stepConfig";
 
 export const CreateOrganization = () => {
+  const [{ appId }] = useStepGlobalState();
+  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const nav = useNavigate();
 
@@ -25,7 +29,7 @@ export const CreateOrganization = () => {
         },
         {
           label: <h4>组织描述</h4>,
-          name: "descption",
+          name: "description",
           children: <TextArea placeholder="请输入组织描述" />,
         },
         {
@@ -37,12 +41,29 @@ export const CreateOrganization = () => {
       ] as FormItemProps[],
     []
   );
+
   const handleSubmit = useCallback(() => {
     form.validateFields().then((data) => {
-      console.log("提交表单：", data);
-      nav(`/step/${StepConfig[STEPS.step2].path}`);
+      setLoading(true);
+      createOrg({
+        name: data?.name,
+        appIds: [appId],
+        logo: data?.logo,
+        description: data?.description,
+      })
+        .then(() => {
+          notification.success({ message: "创建组织成功" });
+          nav(`/step/${StepConfig[STEPS.step2].path}`);
+        })
+        .catch(() => {
+          notification.error({ message: "创建组织失败" });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     });
-  }, [form]);
+  }, [form, appId]);
+
   const handleClear = useCallback(() => {
     form.resetFields();
   }, [form]);
@@ -59,7 +80,7 @@ export const CreateOrganization = () => {
         ))}
       </Form>
       <Space size={24} className="mtd-btn">
-        <Button type="primary" onClick={handleSubmit}>
+        <Button type="primary" loading={loading} onClick={handleSubmit}>
           创建
         </Button>
         <Button onClick={handleClear}>清空</Button>

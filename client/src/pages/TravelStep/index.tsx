@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { useEffect } from "react";
 import { Link, Outlet, useMatches } from "react-router-dom";
 
-import config from "@/config";
+import config from "@/CONFIG_ME_FIRST";
 import { useStepGlobalState } from "@/context/stepContext";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 

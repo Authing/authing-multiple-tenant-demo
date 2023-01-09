@@ -13,7 +13,7 @@ const useBridgeGlobalState = createGlobalState<StepGlobalState>(
   {} as StepGlobalState
 );
 
-/** 全局上下文 */
+/** Step 全局上下文 */
 export const useStepGlobalState = (): [
   StepGlobalState,
   (state: StepGlobalState, cover?: boolean) => void

@@ -1,7 +1,19 @@
 import "./index.less";
 
-import { Button, Form, FormItemProps, Input, notification, Select } from "antd";
-import { useCallback, useMemo, useState } from "react";
+import {
+  Button,
+  ButtonProps,
+  Form,
+  FormItemProps,
+  Input,
+  notification,
+  Select,
+  SelectProps,
+  Skeleton,
+} from "antd";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { getInviteLink, sendInviteEmails } from "@/api/organization";
+import { useStepGlobalState } from "@/context/stepContext";
 
 const ExpireOptions = [
   { label: "1天", value: "1" },
@@ -10,11 +22,39 @@ const ExpireOptions = [
   { label: "永久", value: "none" },
 ];
 
-const EmailSelect = (props: any) => {
+const LinkCopy = (props: { value?: string }) => {
+  const { value } = props;
+  return (
+    <Skeleton active paragraph={false} loading={!value}>
+      <div>{value}</div>
+    </Skeleton>
+  );
+};
+
+const ExpireSelect = (props: Partial<SelectProps>) => {
+  const { value, onChange, options } = props;
+  return (
+    <div>
+      <span>有效期为</span>
+      &nbsp;
+      <Select
+        value={value}
+        style={{ width: "5em" }}
+        onChange={onChange}
+        options={options}
+      />
+    </div>
+  );
+};
+
+const EmailSelect = (
+  props: Partial<SelectProps & { submitBtn: ButtonProps }>
+) => {
+  const { submitBtn, ...selectProps } = props;
   return (
     <Input.Group size="large" compact>
-      <Select mode="tags" style={{ width: "80%" }} {...props}></Select>
-      <Button type="primary" onClick={props?.onSubmit}>
+      <Select mode="tags" style={{ width: "80%" }} {...selectProps}></Select>
+      <Button type="primary" {...submitBtn}>
         邀请
       </Button>
     </Input.Group>
@@ -23,54 +63,86 @@ const EmailSelect = (props: any) => {
 
 export const InviteUser = () => {
   const [form] = Form.useForm();
-  const [expire, setExpire] = useState<string>("7");
-  const handleInvite = useCallback(() => {
-    form.validateFields(["email"]).then((data) => {
-      console.log("校验成功，可以调接口", data);
-      //TODO: 调接口
-      notification.success({ message: "邀请成功" });
+  const [{ appId, tenantId }] = useStepGlobalState();
+  const [, setUpdate] = useState({});
+  const formValues = form.getFieldsValue();
+  const [inviteLoading, setInviteLoading] = useState(false);
+  useEffect(() => {
+    const validityTerm = formValues.validityTerm;
+    if (!appId || !validityTerm) return;
+    getInviteLink({
+      validityTerm: validityTerm,
+      appId,
+      tenantId,
+      emails: formValues.emails,
+    }).then(() => {
+      //TODO: 补充逻辑
+      form.setFieldsValue({ "invite-link": "https://abc.com" });
     });
-  }, []);
-  const handleExpireSelect = useCallback<
-    NonNullable<Parameters<typeof Select>[0]["onChange"]>
-  >((value) => {
-    setExpire(value as string);
-  }, []);
+  }, [formValues.validityTerm, formValues.emails, appId]);
+
+  const handleInvite = useCallback(() => {
+    form.validateFields(["emails"]).then((data) => {
+      setInviteLoading(true);
+      sendInviteEmails({ recordIds: data?.emails })
+        .then(() => {
+          notification.success({ message: "邀请成功" });
+        })
+        .catch(() => {
+          notification.success({ message: "邀请失败" });
+        })
+        .finally(() => {
+          setInviteLoading(false);
+        });
+    });
+  }, [form]);
+
+  const inviteButtonProps = useMemo<ButtonProps>(
+    () => ({
+      onClick: handleInvite,
+      disabled: !formValues.emails?.length,
+      loading: inviteLoading,
+    }),
+    [formValues, handleInvite]
+  );
+
   const formItems = useMemo(
     () =>
       [
         {
           label: <h4>通过链接邀请：</h4>,
-          children: "ddd",
+          name: "invite-link",
+          children: <LinkCopy />,
         },
         {
           label: <h4>邀请有效期</h4>,
+          name: "validityTerm",
+          initialValue: "7",
           children: (
-            <div>
-              <span>有效期为</span>
-              &nbsp;
-              <Select
-                value={expire}
-                style={{ width: "5em" }}
-                onChange={handleExpireSelect}
-                options={ExpireOptions}
-              />
-            </div>
+            <ExpireSelect
+              options={ExpireOptions}
+              onChange={() => setUpdate({})}
+            />
           ),
         },
         {
           label: <h4>通过邮件邀请：</h4>,
-          name: "email",
+          name: "emails",
           rules: [
             {
               type: "array",
               defaultField: { type: "email", message: "邮箱格式不正确" },
             },
           ],
-          children: <EmailSelect onSubmit={handleInvite} />,
+          children: (
+            <EmailSelect
+              submitBtn={inviteButtonProps}
+              onChange={() => setUpdate({})}
+            />
+          ),
         },
       ] as FormItemProps[],
-    []
+    [inviteButtonProps]
   );
   return (
     <div className="authing_mtd-invite-user">
