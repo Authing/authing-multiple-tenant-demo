@@ -2,7 +2,7 @@ import "./index.less";
 
 import TenantDefaultDoor from "@/assets/tenant-default-door.svg";
 import { Button } from "antd";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { BASE_URL } from "@/utils/baseUrl";
 import { useNavigate } from "react-router-dom";
 import { StepConfig, STEPS } from "../TravelStep/stepConfig";
@@ -11,9 +11,10 @@ export const Home = () => {
   const nav = useNavigate();
   //TODO: 判断是否登录，有登录态则重定向后续页面
   const handleClick = useCallback(() => {
-    // window.location.href = `${BASE_URL}/login`;
-    nav(`/step/${StepConfig[STEPS.step1].path}`);
+    window.location.href = `${BASE_URL}/login`;
+    // nav(`/step/${StepConfig[STEPS.step1].path}`);
   }, []);
+  useEffect(() => {}, []);
   return (
     <div className="authing_mtd-please-login">
       <img src={TenantDefaultDoor} alt="" />

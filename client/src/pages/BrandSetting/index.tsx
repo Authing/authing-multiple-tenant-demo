@@ -4,20 +4,20 @@ import { Button, Col, Modal, Row, Spin } from "antd";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { getPublicConfig } from "@/api";
+import { updateBrandingConfig } from "@/api/branding";
 import { GuardConfigPannel } from "@/components/GuardConfigPannel";
 import { GuardScreen } from "@/components/GuardScreen";
 import env from "@/config/env";
+import { useGlobalState } from "@/context/globalContext";
 import { useGuardGlobalState } from "@/context/guardContext";
-import { useStepGlobalState } from "@/context/stepContext";
 import {
   GuardAppendConfig,
   GuardOptions,
   GuardProvider,
 } from "@authing/guard-react18";
-import { updateBrandingConfig } from "@/api/branding";
 
 export const BrandSetting = () => {
-  const [{ appId, tenantId }] = useStepGlobalState();
+  const [{ appId, tenantId }] = useGlobalState();
   const [guardState, setGuardState] = useGuardGlobalState();
   const [retry, setRetry] = useState({});
 

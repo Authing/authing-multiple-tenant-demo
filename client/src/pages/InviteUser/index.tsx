@@ -12,8 +12,9 @@ import {
   Skeleton,
 } from "antd";
 import { useCallback, useEffect, useMemo, useState } from "react";
+
 import { getInviteLink, sendInviteEmails } from "@/api/organization";
-import { useStepGlobalState } from "@/context/stepContext";
+import { useGlobalState } from "@/context/globalContext";
 
 const ExpireOptions = [
   { label: "1天", value: "1" },
@@ -63,7 +64,7 @@ const EmailSelect = (
 
 export const InviteUser = () => {
   const [form] = Form.useForm();
-  const [{ appId, tenantId }] = useStepGlobalState();
+  const [{ appId, tenantId }] = useGlobalState();
   const [, setUpdate] = useState({});
   const formValues = form.getFieldsValue();
   const [inviteLoading, setInviteLoading] = useState(false);

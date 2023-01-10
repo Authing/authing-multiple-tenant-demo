@@ -8,12 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { createOrg } from "@/api/organization";
 import { UploadImage } from "@/components/UploadImage";
 import { DefaultTenantLogo } from "@/constants";
-import { useStepGlobalState } from "@/context/stepContext";
 
 import { StepConfig, STEPS } from "../TravelStep/stepConfig";
+import { useGlobalState } from "@/context/globalContext";
 
 export const CreateOrganization = () => {
-  const [{ appId }] = useStepGlobalState();
+  const [{ appId }] = useGlobalState();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const nav = useNavigate();

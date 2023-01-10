@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { Link, Outlet, useMatches } from "react-router-dom";
 
 import config from "@/CONFIG_ME_FIRST";
-import { useStepGlobalState } from "@/context/stepContext";
+import { useGlobalState } from "@/context/globalContext";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
 import { StepConfig, STEPS } from "./stepConfig";
@@ -16,7 +16,7 @@ const optional = <T,>(fn: T, ...args: any): Exclude<T, Function> => {
 };
 
 export const TravelStep = () => {
-  const [, setStepState] = useStepGlobalState();
+  const [, setStepState] = useGlobalState();
   useEffect(() => {
     // 初始化 step 全局上下文
     setStepState({ appId: config.appId }, true);

@@ -2,30 +2,28 @@ import { merge } from "lodash";
 import { useCallback, useEffect, useRef } from "react";
 import { createGlobalState } from "react-use";
 
-export interface StepGlobalState {
+export interface GlobalState {
   /** 应用 ID */
   appId: string;
   /** 租户 ID */
   tenantId?: string;
 }
 
-const useBridgeGlobalState = createGlobalState<StepGlobalState>(
-  {} as StepGlobalState
-);
+const useBridgeGlobalState = createGlobalState<GlobalState>({} as GlobalState);
 
-/** Step 全局上下文 */
-export const useStepGlobalState = (): [
-  StepGlobalState,
-  (state: StepGlobalState, cover?: boolean) => void
+/** 全局上下文 */
+export const useGlobalState = (): [
+  GlobalState,
+  (state: GlobalState, cover?: boolean) => void
 ] => {
   const [globalState, setGlobalState] = useBridgeGlobalState();
-  const stateRef = useRef<StepGlobalState>();
+  const stateRef = useRef<GlobalState>();
 
   useEffect(() => {
     stateRef.current = globalState;
   }, [globalState]);
   const setMergeState = useCallback(
-    (state: StepGlobalState, cover?: boolean) => {
+    (state: GlobalState, cover?: boolean) => {
       const newState = merge({}, cover ? null : stateRef.current, state);
       setGlobalState(newState);
     },
