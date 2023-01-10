@@ -1,7 +1,9 @@
+import "./index.less";
+
+import { Avatar, Button, ButtonProps, Dropdown, Layout, MenuProps } from "antd";
+
 import env from "@/config/env";
 import { ToolOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Button, ButtonProps, Layout } from "antd";
-import "./index.less";
 
 export interface HeaderProps {}
 
@@ -14,6 +16,16 @@ export default (props: HeaderProps) => {
       target: "_blank",
     },
   ];
+  const dropdowns: MenuProps["items"] = [
+    {
+      label: "退出",
+      key: "logout",
+      onClick() {
+        window.localStorage.removeItem(env("TOKEN_KEY")!);
+        window.location.reload();
+      },
+    },
+  ];
   return (
     <Layout.Header className="authing_mtd-header">
       <div className="mtd-header-btns">
@@ -21,7 +33,9 @@ export default (props: HeaderProps) => {
           <Button key={key} type="link" {...it} />
         ))}
       </div>
-      <Avatar className="mtd-avatar" icon={<UserOutlined />} />
+      <Dropdown placement="bottomRight" menu={{ items: dropdowns }}>
+        <Avatar className="mtd-avatar" icon={<UserOutlined />} />
+      </Dropdown>
     </Layout.Header>
   );
 };
