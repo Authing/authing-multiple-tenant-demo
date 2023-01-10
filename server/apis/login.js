@@ -27,9 +27,14 @@ loginsRouter.get("/callback", async function (req, res) {
 });
 
 loginsRouter.post("/token", async function (req, res) {
-  const result = await authenticationClient.getAccessTokenByCode(req.body.code);
-  res.statusCode = 200;
-  res.json({ token: result });
+  try {
+    var result = await authenticationClient.getAccessTokenByCode(req.body.code);
+    res.statusCode = 200;
+    res.json(result);
+  } catch (err) {
+    res.statusCode = 200;
+    res.json({ error: "token 请求失败", code: 400, statusCode: 400 });
+  }
 });
 
 module.exports = loginsRouter;
