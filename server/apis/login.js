@@ -1,4 +1,11 @@
 var Router = require("express").Router;
+var AuthenticationClient = require("authing-js-sdk").AuthenticationClient;
+var authenticationClient = new AuthenticationClient({
+  appId: process.env.DEMO_AUTHING_CLIENT_ID,
+  secret: process.env.DEMO_AUTHING_CLIENT_SECRET,
+  appHost: process.env.DEMO_AUTHING_API_ENDPOINT,
+  protocol: "oidc",
+});
 
 var loginsRouter = Router();
 
@@ -13,11 +20,16 @@ loginsRouter.get("/", async function (req, res) {
 });
 
 loginsRouter.get("/callback", async function (req, res) {
-  console.log(req.query);
   res.statusCode = 200;
   res.redirect(
     process.env.DEMO_FRONTEND_CALLBACK_URL + `?code=${req.query.code}`
   );
+});
+
+loginsRouter.post("/token", async function (req, res) {
+  const result = await authenticationClient.getAccessTokenByCode(req.body.code);
+  res.statusCode = 200;
+  res.json({ token: result });
 });
 
 module.exports = loginsRouter;
