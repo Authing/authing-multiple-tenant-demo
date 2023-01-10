@@ -32,6 +32,7 @@ loginsRouter.post("/token", async function (req, res) {
     res.statusCode = 200;
     res.json(result);
   } catch (err) {
+    console.log("看看出错：", err);
     res.statusCode = 200;
     res.json({ error: "token 请求失败", code: 400, statusCode: 400 });
   }
