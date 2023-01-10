@@ -3,27 +3,27 @@ import { CreateOrganization } from "@/pages/CreateOrganization";
 import { DocExplain } from "@/pages/DocExplain";
 import { GetStart } from "@/pages/GetStart";
 import { InviteUser } from "@/pages/InviteUser";
-import { Home } from "@/pages/Home";
-import { TravelStep } from "@/pages/TravelStep";
-import { StepConfig, STEPS } from "@/pages/TravelStep/stepConfig";
+import { Login } from "@/pages/Login";
+import { StepHome } from "@/pages/StepHome";
+import { StepConfig, STEPS } from "@/pages/StepHome/stepConfig";
 import { Navigate, RouteObject } from "react-router-dom";
 import { Layout } from "../components/Layout";
 
 export default [
   {
-    path: "/home",
+    path: "/login",
     id: "home",
-    element: <Home />,
+    element: <Login />,
   },
   {
     path: "/",
     id: "root",
     element: <Layout />,
     children: [
-      { index: true, element: <Navigate to="/home" /> },
+      { index: true, element: <Navigate to="/login" /> },
       {
         path: "/step",
-        element: <TravelStep />,
+        element: <StepHome />,
         children: [
           {
             index: true,

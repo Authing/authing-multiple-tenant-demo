@@ -9,7 +9,7 @@ import { createOrg } from "@/api/organization";
 import { UploadImage } from "@/components/UploadImage";
 import { DefaultTenantLogo } from "@/constants";
 
-import { StepConfig, STEPS } from "../TravelStep/stepConfig";
+import { StepConfig, STEPS } from "../StepHome/stepConfig";
 import { useGlobalState } from "@/context/globalContext";
 
 export const CreateOrganization = () => {

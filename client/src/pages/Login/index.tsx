@@ -5,9 +5,9 @@ import { Button } from "antd";
 import { useCallback, useEffect } from "react";
 import { BASE_URL } from "@/utils/baseUrl";
 import { useNavigate } from "react-router-dom";
-import { StepConfig, STEPS } from "../TravelStep/stepConfig";
+import { StepConfig, STEPS } from "../StepHome/stepConfig";
 
-export const Home = () => {
+export const Login = () => {
   const nav = useNavigate();
   //TODO: 判断是否登录，有登录态则重定向后续页面
   const handleClick = useCallback(() => {
