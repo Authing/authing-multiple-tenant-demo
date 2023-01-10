@@ -30,11 +30,20 @@ loginsRouter.post("/token", async function (req, res) {
   try {
     var result = await authenticationClient.getAccessTokenByCode(req.body.code);
     res.statusCode = 200;
-    res.json(result);
+    res.json({
+      code: 200,
+      statusCode: 200,
+      message: "获取成功",
+      data: result,
+    });
   } catch (err) {
     console.log("看看出错：", err);
     res.statusCode = 200;
-    res.json({ error: "token 请求失败", code: 400, statusCode: 400 });
+    res.json({
+      code: 400,
+      statusCode: 400,
+      message: "token 请求失败，请查看 demo 后台的调试信息。",
+    });
   }
 });
 
