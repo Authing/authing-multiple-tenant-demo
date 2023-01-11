@@ -7,13 +7,14 @@ import { ApplicationConfig, GuardPageConfig } from "@/interface";
 export interface GuardGlobalStateProps {
   publicConfig?: Partial<ApplicationConfig>;
   pageConfig?: Partial<GuardPageConfig>;
+  changedConfig?: Partial<Omit<GuardGlobalStateProps, "changedConfig">> | null;
 }
 
 const useBridgeGlobalState = createGlobalState<GuardGlobalStateProps>({});
 
 export const useGuardGlobalState = (): [
-  GuardGlobalStateProps | undefined,
-  (state: GuardGlobalStateProps, cover?: boolean) => void
+  GuardGlobalStateProps,
+  (state: Partial<GuardGlobalStateProps>, cover?: boolean) => void
 ] => {
   const [globalState, setGlobalState] = useBridgeGlobalState();
   const stateRef = useRef<GuardGlobalStateProps>();
@@ -21,7 +22,7 @@ export const useGuardGlobalState = (): [
     stateRef.current = globalState;
   }, [globalState]);
   const setMergeState = useCallback(
-    (state: GuardGlobalStateProps, cover?: boolean) => {
+    (state: Partial<GuardGlobalStateProps>, cover?: boolean) => {
       const newState = merge({}, cover ? null : stateRef.current, state);
       setGlobalState(newState);
     },

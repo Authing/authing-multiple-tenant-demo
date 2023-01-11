@@ -2,8 +2,9 @@ import "./index.less";
 
 import { Button, Col, Modal, Row, Spin } from "antd";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
-import { getPublicConfig } from "@/api";
+import { getApplicationConfig } from "@/api";
 import { updateBrandingConfig } from "@/api/branding";
 import { GuardConfigPannel } from "@/components/GuardConfigPannel";
 import { GuardScreen } from "@/components/GuardScreen";
@@ -17,13 +18,15 @@ import {
 } from "@authing/guard-react18";
 
 export const BrandSetting = () => {
-  const [{ appId, tenantId }] = useGlobalState();
+  const [{ appId }] = useGlobalState();
+  const [searchParams] = useSearchParams();
   const [guardState, setGuardState] = useGuardGlobalState();
   const [retry, setRetry] = useState({});
+  const tenantId = searchParams.get("tenant_id")!;
 
   useEffect(() => {
     if (!appId) return;
-    getPublicConfig(appId).then((res) => {
+    getApplicationConfig(appId).then((res) => {
       const data = res?.data;
       setGuardState({ publicConfig: data ?? {} });
     });
@@ -62,9 +65,10 @@ export const BrandSetting = () => {
       content: "保存后，所有配置立即发布生效，是否确定？",
       onOk: async () => {
         await updateBrandingConfig({
-          update: guardState?.publicConfig,
+          update: guardState?.changedConfig?.publicConfig,
         });
         setRetry({});
+        setGuardState({ changedConfig: null });
       },
     });
   }, [guardState]);

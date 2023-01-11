@@ -3,10 +3,13 @@ import { useCallback, useEffect, useRef } from "react";
 import { createGlobalState } from "react-use";
 
 import CONFIG_ME_FIRST from "@/CONFIG_ME_FIRST";
+import { ApplicationConfig } from "@/interface";
 
 export interface GlobalState {
   /** 应用 ID */
   appId: string;
+  /** 应用相关信息 */
+  applications?: ApplicationConfig;
 }
 
 const useBridgeGlobalState = createGlobalState<GlobalState>({

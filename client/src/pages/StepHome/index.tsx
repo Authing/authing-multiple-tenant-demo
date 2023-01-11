@@ -5,6 +5,8 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { Link, Outlet, useMatches, useNavigate } from "react-router-dom";
 
+import { getApplicationConfig } from "@/api";
+import { useGlobalState } from "@/context/globalContext";
 import { checkAuth } from "@/utils/checkToken";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
@@ -15,13 +17,22 @@ const optional = <T,>(fn: T, ...args: any): Exclude<T, Function> => {
 };
 
 export const StepHome = () => {
+  const nav = useNavigate();
+  const [ready, setReady] = useState(false);
+  const [{ appId, applications }, setGlobalState] = useGlobalState();
+
+  useEffect(() => {
+    if (!appId) return;
+    getApplicationConfig(appId).then(({ data }) => {
+      setGlobalState({ applications: data });
+    });
+  }, [appId]);
+
   const finalMatch = useMatches()?.at(-1);
   const stepConfig = StepConfig?.[finalMatch?.id as STEPS];
   const back = optional(stepConfig?.backTo);
   const header = optional(stepConfig?.header);
-  const footer = optional(stepConfig?.footer);
-  const nav = useNavigate();
-  const [ready, setReady] = useState(false);
+  const footer = optional(stepConfig?.footer, applications);
 
   useEffect(() => {
     checkAuth()

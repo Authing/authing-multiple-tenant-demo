@@ -52,14 +52,14 @@ export const CreateOrganization = () => {
         description: data?.description,
       })
         .then(({ data }) => {
-          setGlobalState({ tenantId: data?.tenantId! });
           notification.success({ message: "创建组织成功" });
           const searchParams = new URLSearchParams({
             tenant_id: data?.tenantId,
           });
-          nav(
-            `/step/${StepConfig[STEPS.step2].path}?${searchParams.toString()}`
-          );
+          nav({
+            pathname: `/step/${StepConfig[STEPS.step2].path}`,
+            search: searchParams.toString(),
+          });
         })
         .catch((e) => {
           notification.error({ message: e?.message ?? "创建组织失败" });

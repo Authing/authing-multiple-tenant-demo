@@ -28,11 +28,11 @@ const UPLOAD_ACTION = `${BASE_URL}/api/v2/upload?folder=photos`;
 export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
   const { style, className } = props;
   const [form] = Form.useForm();
-  const [guardState, setGuardState] = useGuardGlobalState();
+  const [, setGuardState] = useGuardGlobalState();
 
   const handleFormValuesChange = useCallback(
     (values: any, allValues: GuardGlobalStateProps) => {
-      setGuardState(allValues);
+      setGuardState({ ...allValues, changedConfig: values });
     },
     []
   );
