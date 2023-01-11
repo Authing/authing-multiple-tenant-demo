@@ -13,7 +13,7 @@ import { StepConfig, STEPS } from "../StepHome/stepConfig";
 import { useGlobalState } from "@/context/globalContext";
 
 export const CreateOrganization = () => {
-  const [{ appId }] = useGlobalState();
+  const [{ appId }, setGlobalState] = useGlobalState();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const nav = useNavigate();
@@ -51,12 +51,18 @@ export const CreateOrganization = () => {
         logo: data?.logo,
         description: data?.description,
       })
-        .then(() => {
+        .then(({ data }) => {
+          setGlobalState({ tenantId: data?.tenantId! });
           notification.success({ message: "创建组织成功" });
-          nav(`/step/${StepConfig[STEPS.step2].path}`);
+          const searchParams = new URLSearchParams({
+            tenant_id: data?.tenantId,
+          });
+          nav(
+            `/step/${StepConfig[STEPS.step2].path}?${searchParams.toString()}`
+          );
         })
-        .catch(() => {
-          notification.error({ message: "创建组织失败" });
+        .catch((e) => {
+          notification.error({ message: e?.message ?? "创建组织失败" });
         })
         .finally(() => {
           setLoading(false);

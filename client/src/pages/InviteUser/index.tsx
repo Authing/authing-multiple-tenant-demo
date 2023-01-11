@@ -12,6 +12,7 @@ import {
   Skeleton,
 } from "antd";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { getInviteLink, sendInviteEmails } from "@/api/organization";
 import { useGlobalState } from "@/context/globalContext";
@@ -64,38 +65,47 @@ const EmailSelect = (
 
 export const InviteUser = () => {
   const [form] = Form.useForm();
-  const [{ appId, tenantId }] = useGlobalState();
+  const [{ appId }] = useGlobalState();
+  const [searchParams] = useSearchParams();
   const [, setUpdate] = useState({});
   const formValues = form.getFieldsValue();
+  const [validityTerm, setValidityTerm] = useState("7");
   const [inviteLoading, setInviteLoading] = useState(false);
+  const tenantId = searchParams.get("tenant_id")!;
+
   useEffect(() => {
-    const validityTerm = formValues.validityTerm;
-    if (!appId || !validityTerm) return;
+    if (!appId || !validityTerm || !tenantId) return;
     getInviteLink({
-      validityTerm: validityTerm,
+      validityTerm,
       appId,
       tenantId,
-      emails: formValues.emails,
-    }).then(() => {
-      //TODO: 补充逻辑
-      form.setFieldsValue({ "invite-link": "https://abc.com" });
+    }).then(({ data }) => {
+      const link = data?.list?.[0]?.inviteLink;
+      form.setFieldsValue({ "invite-link": link });
     });
-  }, [formValues.validityTerm, formValues.emails, appId]);
+  }, [validityTerm, appId, tenantId]);
 
-  const handleInvite = useCallback(() => {
-    form.validateFields(["emails"]).then((data) => {
-      setInviteLoading(true);
-      sendInviteEmails({ recordIds: data?.emails })
-        .then(() => {
-          notification.success({ message: "邀请成功" });
-        })
-        .catch(() => {
-          notification.success({ message: "邀请失败" });
-        })
-        .finally(() => {
-          setInviteLoading(false);
-        });
+  const handleInvite = useCallback(async () => {
+    const data = await form.validateFields(["emails"]);
+    setInviteLoading(true);
+    const { data: { list } = {} } = await getInviteLink({
+      validityTerm,
+      appId,
+      tenantId,
+      emails: data?.emails,
     });
+    const recordIds = list?.map((it) => it.recordId) ?? [];
+    return sendInviteEmails({ recordIds })
+      .then(() => {
+        form.setFieldsValue({ emails: [] });
+        notification.success({ message: "邀请成功" });
+      })
+      .catch((e) => {
+        notification.success({ message: e?.message ?? "邀请失败" });
+      })
+      .finally(() => {
+        setInviteLoading(false);
+      });
   }, [form]);
 
   const inviteButtonProps = useMemo<ButtonProps>(
@@ -116,13 +126,12 @@ export const InviteUser = () => {
           children: <LinkCopy />,
         },
         {
-          label: <h4>邀请有效期</h4>,
-          name: "validityTerm",
-          initialValue: "7",
+          label: <h4>邀请有效期：</h4>,
           children: (
             <ExpireSelect
+              value={validityTerm}
               options={ExpireOptions}
-              onChange={() => setUpdate({})}
+              onChange={setValidityTerm}
             />
           ),
         },
