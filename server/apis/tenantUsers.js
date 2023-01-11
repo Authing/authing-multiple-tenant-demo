@@ -5,7 +5,7 @@ var tenantUsersRouter = Router();
 tenantUsersRouter.post("/invite", async function (req, res) {
   var result = await authingRequest(
     "POST",
-    "/api/v2/email/inviteTenantUser",
+    "/api/v3/add-tenant-users",
     req.body,
     req.headers["authorization"]
   );
