@@ -6,33 +6,42 @@ import { Navigate, useSearchParams } from "react-router-dom";
 
 import { getTokenByCode } from "@/api/auth";
 import TenantDefaultDoor from "@/assets/tenant-default-door.svg";
+import env from "@/config/env";
 import { BASE_URL } from "@/utils/baseUrl";
 import { checkAuth } from "@/utils/checkToken";
+import { storeToken } from "@/utils/tokenStore";
 
 export const Login = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const code = searchParams.get("code");
   const [ready, setReady] = useState(false);
   const [isPass, setIsPass] = useState(false);
 
   useEffect(() => {
+    setIsPass(false);
+    setReady(false);
     checkAuth()
       .then(() => setIsPass(true))
       .catch(() => {
-        if (!code) {
-          setIsPass(false);
-          return;
-        }
+        if (!code) return;
         return getTokenByCode({ code })
           .then(({ data }) => {
-            console.log(data);
+            const token = data?.access_token;
+            storeToken(token);
           })
-          .catch(() => {
-            setIsPass(false);
+          .finally(() => {
+            searchParams.delete("code");
+            setSearchParams(searchParams);
           });
       })
       .finally(() => setReady(true));
+    return () => {
+      if (getTokenByCode.controller) {
+        getTokenByCode.controller?.abort();
+      }
+    };
   }, [code]);
+
   const handleClick = useCallback(() => {
     window.location.href = `${BASE_URL}/login`;
   }, []);
