@@ -36,8 +36,13 @@ body {
   }
 }
 
-.@{ant-prefix}-btn:focus,
-button:focus {
-  outline: none;
-  border: none;
+.@{ant-prefix}-btn {
+
+  &:focus,
+  &:hover,
+  &:active {
+    outline: none;
+    border: none;
+  }
+
 }
