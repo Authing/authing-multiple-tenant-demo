@@ -17,19 +17,27 @@ body {
   --header-height: 64px;
 }
 
+@ant-prefix: ant;
+
 [class*="authing-"] {
 
-  .ant-btn-primary {
+  .@{ant-prefix}-btn-primary {
     color: #fff;
   }
 
-  .ant-btn-link {
+  .@{ant-prefix}-btn-link {
     color: #1677ff;
   }
 
-  .ant-btn-primary,
-  .ant-btn-link {
+  .@{ant-prefix}-btn-primary,
+  .@{ant-prefix}-btn-link {
     border: none;
     outline: none;
   }
+}
+
+.@{ant-prefix}-btn:focus,
+button:focus {
+  outline: none;
+  border: none;
 }
