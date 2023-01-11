@@ -73,4 +73,29 @@ applicationsRouter.get(
   }
 );
 
+applicationsRouter.get("/v3-read/:appId", async function (req, res) {
+  var result = await authingRequest(
+    "GET",
+    `/api/v3/get-application?appId=${req.params.appId}`,
+    {},
+    req.headers["authorization"]
+  );
+  res.statusCode = 200;
+  res.json(result);
+});
+
+applicationsRouter.post(
+  "/v3-update-login-page-config",
+  async function (req, res) {
+    var result = await authingRequest(
+      "POST",
+      `/api/v3/update-login-page-config`,
+      {},
+      req.headers["authorization"]
+    );
+    res.statusCode = 200;
+    res.json(result);
+  }
+);
+
 module.exports = applicationsRouter;
