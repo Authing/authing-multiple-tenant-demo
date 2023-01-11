@@ -1,5 +1,5 @@
 var Router = require("express").Router;
-var authingRequest = require("../authing");
+var authingRequest = require("../authing").authingRequest;
 var tenantsRouter = Router();
 
 tenantsRouter.post("/create", async function (req, res) {

@@ -1,5 +1,5 @@
 var Router = require("express").Router;
-var authingRequest = require("../authing");
+var authingRequest = require("../authing").authingRequest;
 var tenantUsersRouter = Router();
 
 tenantUsersRouter.post("/invite", async function (req, res) {

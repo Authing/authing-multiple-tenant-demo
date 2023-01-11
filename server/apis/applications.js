@@ -1,5 +1,5 @@
 var Router = require("express").Router;
-var authingRequest = require("../authing");
+var authingRequest = require("../authing").authingRequest;
 var applicationsRouter = Router();
 
 applicationsRouter.get("/config/:appId", async function (req, res) {
