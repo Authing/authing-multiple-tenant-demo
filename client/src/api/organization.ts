@@ -7,7 +7,7 @@ export const createOrg = (params: {
   logo?: string;
   appIds: string[];
 }) => {
-  return axios.post(`/api/v3/create-tenant`, params);
+  return axios.post(`/tenants/create`, params);
 };
 
 /** 获取邀请用户链接 */
@@ -18,9 +18,9 @@ export const getInviteLink = (params: {
   emails?: string[];
   tenantId?: string;
 }) => {
-  return axios.post(`/api/v3/generate-invite-tenant-user-link`, params);
+  return axios.post(`/tenant-users/generate-invite-link`, params);
 };
 
 export const sendInviteEmails = (params: { recordIds: string[] }) => {
-  return axios.post(`/api/v2/email/inviteTenantUser`, params);
+  return axios.post(`/tenant-users/invite`, params);
 };
