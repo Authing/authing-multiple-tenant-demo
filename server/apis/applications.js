@@ -64,7 +64,7 @@ applicationsRouter.get(
   async function (req, res) {
     var result = await authingRequest(
       "GET",
-      `api/v2/applications//has-custom-branding-enabled-app`,
+      `api/v2/applications/has-custom-branding-enabled-app`,
       {},
       req.headers["authorization"]
     );
