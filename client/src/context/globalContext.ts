@@ -18,7 +18,7 @@ const useBridgeGlobalState = createGlobalState<GlobalState>({
 /** 全局上下文 */
 export const useGlobalState = (): [
   GlobalState,
-  (state: GlobalState, cover?: boolean) => void
+  (state: Partial<GlobalState>, cover?: boolean) => void
 ] => {
   const [globalState, setGlobalState] = useBridgeGlobalState();
   const stateRef = useRef<GlobalState>();
@@ -27,7 +27,7 @@ export const useGlobalState = (): [
     stateRef.current = globalState;
   }, [globalState]);
   const setMergeState = useCallback(
-    (state: GlobalState, cover?: boolean) => {
+    (state: Partial<GlobalState>, cover?: boolean) => {
       const newState = merge({}, cover ? null : stateRef.current, state);
       setGlobalState(newState);
     },
