@@ -1,3 +1,4 @@
+import { getToken } from "@/utils/tokenStore";
 import { notification } from "antd";
 import axios from "axios";
 
@@ -11,8 +12,15 @@ axios.interceptors.response.use((response) => {
   if (code === 200 || statusCode === 200) {
     return response.data;
   } else {
-    notification.error({ message });
+    notification.error({ message: message });
   }
 
   return Promise.reject(response.data);
+});
+
+axios.interceptors.request.use((config) => {
+  if (config.headers) {
+    config.headers = { ["authorization"]: getToken(), ...config.headers };
+  }
+  return config;
 });
