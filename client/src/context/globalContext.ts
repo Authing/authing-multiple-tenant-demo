@@ -7,8 +7,6 @@ import CONFIG_ME_FIRST from "@/CONFIG_ME_FIRST";
 export interface GlobalState {
   /** 应用 ID */
   appId: string;
-  /** 租户 ID */
-  tenantId?: string;
 }
 
 const useBridgeGlobalState = createGlobalState<GlobalState>({
