@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { getToken } from "@/utils/tokenStore";
+import { getToken, removeToken } from "@/utils/tokenStore";
 
 import env from "./env";
 
@@ -9,15 +9,15 @@ axios.defaults.timeout = 1000 * 60 * 2; // 2分钟超时
 
 axios.interceptors.response.use((response) => {
   const { code, statusCode } = response.data as AuthingResponse;
-  if (code === 200 || statusCode === 200) {
+  if ([code, statusCode].some((it) => it === 200)) {
     return response.data;
+  } else if ([code, statusCode].some((it) => it === 403)) {
+    removeToken();
   }
   return Promise.reject(response.data);
 });
 
 axios.interceptors.request.use((config) => {
-  if (config.headers) {
-    config.headers = { ["authorization"]: getToken(), ...config.headers };
-  }
+  config.headers = { ["authorization"]: getToken(), ...config.headers };
   return config;
 });
