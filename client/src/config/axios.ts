@@ -11,8 +11,6 @@ axios.interceptors.response.use((response) => {
   const { code, statusCode } = response.data as AuthingResponse;
   if ([code, statusCode].some((it) => it === 200)) {
     return response.data;
-  } else if ([code, statusCode].some((it) => it === 403)) {
-    removeToken();
   }
   return Promise.reject(response.data);
 });
