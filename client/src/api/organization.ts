@@ -5,10 +5,10 @@ export const createOrg = (params: {
   name: string;
   description?: string;
   logo?: string;
-  appIds: string[];
+  appId: string;
 }) => {
   return axios.post(`/tenants/create`, params) as Promise<
-    AuthingResponse<{ tenantId: string; [key: string]: any }>
+    AuthingResponse<{ id: string; [key: string]: any }>
   >;
 };
 
@@ -31,7 +31,9 @@ export const getInviteLink = (params: {
     list: GetInviteLinkType[];
   }>
 > => {
-  return axios.post(`/tenant-users/generate-invite-link`, params);
+  return axios.post(`/tenant-users/generate-invite-link`, params, {
+    params: { tenantId: params?.tenantId },
+  });
 };
 
 export const sendInviteEmails = (params: { recordIds: number[] }) => {
