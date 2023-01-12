@@ -69,7 +69,11 @@ authRouter.get("/logout", async function (req, res) {
       message: "登出失败",
     });
   }
-  res.json(result);
+  res.json({
+    code: 200,
+    statusCode: 200,
+    message: "登出成功",
+  });
 });
 
 module.exports = authRouter;
