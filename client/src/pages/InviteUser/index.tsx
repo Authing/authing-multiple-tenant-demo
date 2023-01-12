@@ -88,20 +88,28 @@ export const InviteUser = () => {
   const handleInvite = useCallback(async () => {
     const data = await form.validateFields(["emails"]);
     setInviteLoading(true);
-    const { data: { list } = {} } = await getInviteLink({
+    getInviteLink({
       validityTerm,
       appId,
       tenantId,
       emails: data?.emails,
-    });
-    const recordIds = list?.map((it) => it.recordId) ?? [];
-    return sendInviteEmails({ recordIds })
+    })
+      .then(({ data: { list, errMsgs } = {} }) => {
+        if (errMsgs?.length) {
+          const message = errMsgs
+            .map((it) => `${it?.email}: ${it?.message}`)
+            ?.join("\n");
+          return Promise.reject({ message });
+        }
+        const recordIds = list?.map((it) => it.recordId) ?? [];
+        return sendInviteEmails({ recordIds }, { params: { tenantId } });
+      })
       .then(() => {
         form.setFieldsValue({ emails: [] });
         notification.success({ message: "邀请成功" });
       })
       .catch((e) => {
-        notification.success({ message: e?.message ?? "邀请失败" });
+        notification.error({ message: e?.message ?? "邀请失败" });
       })
       .finally(() => {
         setInviteLoading(false);
