@@ -29,7 +29,7 @@ applicationsRouter.post("/page-config", async function (req, res) {
   var result = await authingRequest(
     "POST",
     `/api/v2/component-page-config-management/guard/default-app`,
-    {},
+    req.body,
     req.headers["authorization"]
   );
   res.statusCode = 200;
@@ -52,7 +52,7 @@ applicationsRouter.post("/update/:appId", async function (req, res) {
   var result = await authingRequest(
     "POST",
     `api/v2/applications/${appId}`,
-    {},
+    req.body,
     req.headers["authorization"]
   );
   res.statusCode = 200;
