@@ -53,7 +53,7 @@ authRouter.get("/logout", async function (req, res) {
     method: "GET",
     url: `${process.env.DEMO_AUTHING_APP_ENDPOINT}/api/v2/logout?app_id=${process.env.DEMO_AUTHING_APP_ID}`,
     headers: {
-      authorization,
+      authorization: req.headers["authorization"],
       // "x-authing-request-from": "console",
       "x-authing-userpool-id": process.env.DEMO_AUTHING_USERPOOL_ID || "",
       "content-type": "application/json",
