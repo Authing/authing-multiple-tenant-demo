@@ -2,8 +2,8 @@ const axios = require("axios");
 var Router = require("express").Router;
 var AuthenticationClient = require("authing-js-sdk").AuthenticationClient;
 var authenticationClient = new AuthenticationClient({
-  appId: process.env.DEMO_AUTHING_CLIENT_ID,
-  secret: process.env.DEMO_AUTHING_CLIENT_SECRET,
+  appId: process.env.DEMO_AUTHING_APP_ID,
+  secret: process.env.DEMO_AUTHING_APP_SECRET,
   appHost: process.env.DEMO_AUTHING_API_ENDPOINT,
   protocol: "oidc",
 });
@@ -13,7 +13,7 @@ var authRouter = Router();
 authRouter.get("/", async function (req, res) {
   res.redirect(
     `${process.env.DEMO_AUTHING_API_ENDPOINT}/oidc/auth?client_id=${
-      process.env.DEMO_AUTHING_CLIENT_ID
+      process.env.DEMO_AUTHING_APP_ID
     }&protocol=oidc&response_type=code&redirect_uri=${encodeURIComponent(
       process.env.DEMO_LOGIN_CALLBACK_HOST + "/auth/callback"
     )}`
@@ -51,7 +51,7 @@ authRouter.post("/token", async function (req, res) {
 authRouter.get("/logout", async function (req, res) {
   const result = await axios.request({
     method: "GET",
-    url: `${process.env.DEMO_AUTHING_LOG_OUT_ENDPOINT}/api/v2/logout?app_id=${process.env.DEMO_AUTHING_CLIENT_ID}`,
+    url: `${process.env.DEMO_AUTHING_APP_ENDPOINT}/api/v2/logout?app_id=${process.env.DEMO_AUTHING_APP_ID}`,
     headers: {
       authorization,
       // "x-authing-request-from": "console",
