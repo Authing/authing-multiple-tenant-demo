@@ -55,8 +55,7 @@ authRouter.get("/logout", async function (req, res) {
     headers: {
       authorization,
       // "x-authing-request-from": "console",
-      // "x-authing-userpool-id":
-      //   userPoolId || process.env.DEMO_AUTHING_USERPOOL_ID || "",
+      "x-authing-userpool-id": process.env.DEMO_AUTHING_USERPOOL_ID || "",
       "content-type": "application/json",
     },
     data: JSON.stringify(body || {}),
