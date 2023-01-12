@@ -1,3 +1,4 @@
+const axios = require("axios");
 var Router = require("express").Router;
 var AuthenticationClient = require("authing-js-sdk").AuthenticationClient;
 var authenticationClient = new AuthenticationClient({
@@ -48,9 +49,19 @@ authRouter.post("/token", async function (req, res) {
 });
 
 authRouter.get("/logout", async function (req, res) {
-  res.redirect(
-    `${process.env.DEMO_AUTHING_LOG_OUT_ENDPOINT}/api/v2/logout?app_id=${process.env.DEMO_AUTHING_CLIENT_ID}`
-  );
+  const result = await axios.request({
+    method: "GET",
+    url: `${process.env.DEMO_AUTHING_LOG_OUT_ENDPOINT}/api/v2/logout?app_id=${process.env.DEMO_AUTHING_CLIENT_ID}`,
+    headers: {
+      authorization,
+      // "x-authing-request-from": "console",
+      // "x-authing-userpool-id":
+      //   userPoolId || process.env.DEMO_AUTHING_USERPOOL_ID || "",
+      "content-type": "application/json",
+    },
+    data: JSON.stringify(body || {}),
+  });
+  return result.data;
 });
 
 module.exports = authRouter;
