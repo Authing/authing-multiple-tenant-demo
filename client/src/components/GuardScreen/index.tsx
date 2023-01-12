@@ -14,12 +14,10 @@ export interface GuardScreenProps {
   background?: string;
   /** 自定义 css */
   customCss?: string;
-  /** 是否阻止时间冒泡 */
-  stopPropagation?: boolean;
 }
 
 export const GuardScreen = (props: GuardScreenProps) => {
-  const { style, className, background, customCss, stopPropagation } = props;
+  const { style, className, background, customCss } = props;
   const [everythingReady, setEverythingReady] = useState(false);
   const [ctx, setCtx] = useState<SandBoxContext>();
   const guard = useGuard();
@@ -42,18 +40,6 @@ export const GuardScreen = (props: GuardScreenProps) => {
       </>
     );
   }, [iframeDesktopStyle, guardStyle, background, customCss]);
-
-  useEffect(() => {
-    if (!stopPropagation) return;
-    const handler = (e: any) => {
-      e?.stopPropagation();
-      e?.preventDefault();
-    };
-    ctx?.document?.addEventListener("click", handler, true);
-    return () => {
-      ctx?.document?.addEventListener("click", handler, true);
-    };
-  }, [stopPropagation]);
 
   useEffect(() => {
     if (!everythingReady) return;
@@ -101,7 +87,6 @@ export const GuardScreen = (props: GuardScreenProps) => {
           </div>
         </div>
       </SandBox>
-      {/* <div id="authing-guard-container"></div> */}
     </>
   );
 };

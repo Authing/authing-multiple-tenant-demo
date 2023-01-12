@@ -87,7 +87,6 @@ export const BrandSetting = () => {
           {guardConfig?.appId && (
             <GuardProvider {...guardConfig}>
               <GuardScreen
-                stopPropagation
                 className="authing_mtd-guard-screen"
                 background={guardState?.publicConfig?.loadingBackground}
                 customCss={customCss!}

@@ -33,3 +33,7 @@
   > [class*="authing-"].authing-ant-checkbox {
   top: 3px;
 }
+
+.authing-ant-btn{
+  pointer-events: none !important;
+}
