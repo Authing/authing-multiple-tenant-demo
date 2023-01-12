@@ -1,9 +1,10 @@
 import { Radio, Upload } from "antd";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { RGBAPicker } from "./RGBAPicker";
+import { UPLOAD_ACTION } from "@/api/common";
+
 import { ImagePicker } from "./ImagePicker";
-import { BASE_URL } from "@/utils/baseUrl";
+import { RGBAPicker } from "./RGBAPicker";
 
 export interface BackgroundPickerProps {
   value?: string;
@@ -17,7 +18,6 @@ export enum BackgroundType {
 }
 
 const DEFAULT_COLOR = `rgba(248,249,255,100)`;
-const UPLOAD_ACTION = `${BASE_URL}/api/v2/upload?folder=photos`;
 
 export const BackgroundPicker = (props: BackgroundPickerProps) => {
   const { value = DEFAULT_COLOR, onChange, action } = props;

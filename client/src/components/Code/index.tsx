@@ -9,11 +9,12 @@ export interface CodeProps extends ReactCodeMirrorProps {
 
 export const Code = (props: CodeProps) => {
   const { mode, ...mirrorProps } = props;
+  const language = langs[mode] ?? langs["textile"];
   return (
     <CodeMirror
       minHeight="150px"
       theme={materialDark}
-      extensions={[color, langs[mode]()]}
+      extensions={[color, language()]}
       {...mirrorProps}
       basicSetup={{
         lineNumbers: true,

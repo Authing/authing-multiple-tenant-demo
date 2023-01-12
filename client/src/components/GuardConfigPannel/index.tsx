@@ -4,13 +4,13 @@ import { Form, FormItemProps, Switch, Tooltip } from "antd";
 import classNames from "classnames";
 import { useCallback } from "react";
 
+import { UPLOAD_ACTION } from "@/api/common";
 import defaultIcon from "@/assets/default-loading-icon.svg";
 import env from "@/config/env";
 import {
   GuardGlobalStateProps,
   useGuardGlobalState,
 } from "@/context/guardContext";
-import { BASE_URL } from "@/utils/baseUrl";
 import { QuestionCircleOutlined, RightOutlined } from "@ant-design/icons";
 
 import { BackgroundPicker } from "../BackgroundPicker";
@@ -22,8 +22,6 @@ export interface GuardConfigPannelProps {
   className?: string;
   style?: React.CSSProperties;
 }
-
-const UPLOAD_ACTION = `${BASE_URL}/api/v2/upload?folder=photos`;
 
 export const GuardConfigPannel = (props: GuardConfigPannelProps) => {
   const { style, className } = props;

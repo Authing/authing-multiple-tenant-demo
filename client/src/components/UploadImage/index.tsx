@@ -5,7 +5,7 @@ import { RcFile } from "antd/es/upload";
 import classNames from "classnames";
 import { useCallback, useState } from "react";
 
-import { BASE_URL } from "@/utils/baseUrl";
+import { UPLOAD_ACTION } from "@/api/common";
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 
 export interface UploadImageProps {
@@ -13,8 +13,6 @@ export interface UploadImageProps {
   onChange?: (value: string | null) => void;
   action?: Parameters<typeof Upload>[0]["action"];
 }
-
-const UPLOAD_ACTION = `${BASE_URL}/api/v2/upload?folder=photos`;
 
 export const UploadImage = (props: UploadImageProps) => {
   const { value, onChange, action = UPLOAD_ACTION } = props;
