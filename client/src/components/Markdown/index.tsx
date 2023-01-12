@@ -1,7 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
-import { Options as TocOptions, toc } from "rehype-toc";
+import { toc } from "rehype-toc";
 import remarkGfm from "remark-gfm";
 
 import { MdCode } from "./MdCode";
