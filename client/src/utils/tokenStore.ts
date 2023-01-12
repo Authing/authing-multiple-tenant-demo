@@ -1,10 +1,12 @@
 import env from "@/config/env";
 
+const driver = window.sessionStorage;
+
 /** 存储 token */
 export const storeToken = (token: string) => {
   const key = env("TOKEN_KEY");
   if (!key || !token) return false;
-  window.localStorage.setItem(key, token);
+  driver.setItem(key, token);
   return true;
 };
 
@@ -12,5 +14,11 @@ export const storeToken = (token: string) => {
 export const getToken = () => {
   const key = env("TOKEN_KEY");
   if (!key) return;
-  return window.localStorage.getItem(key);
+  return driver.getItem(key);
+};
+
+export const removeToken = () => {
+  const key = env("TOKEN_KEY");
+  if (!key) return;
+  return driver.removeItem(key);
 };
