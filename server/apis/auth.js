@@ -7,26 +7,26 @@ var authenticationClient = new AuthenticationClient({
   protocol: "oidc",
 });
 
-var loginsRouter = Router();
+var authRouter = Router();
 
-loginsRouter.get("/", async function (req, res) {
+authRouter.get("/", async function (req, res) {
   res.redirect(
     `${process.env.DEMO_AUTHING_API_ENDPOINT}/oidc/auth?client_id=${
       process.env.DEMO_AUTHING_CLIENT_ID
     }&protocol=oidc&response_type=code&redirect_uri=${encodeURIComponent(
-      process.env.DEMO_LOGIN_CALLBACK_HOST + "/login/callback"
+      process.env.DEMO_LOGIN_CALLBACK_HOST + "/auth/callback"
     )}`
   );
 });
 
-loginsRouter.get("/callback", async function (req, res) {
+authRouter.get("/callback", async function (req, res) {
   res.statusCode = 200;
   res.redirect(
     process.env.DEMO_FRONTEND_CALLBACK_URL + `?code=${req.query.code}`
   );
 });
 
-loginsRouter.post("/token", async function (req, res) {
+authRouter.post("/token", async function (req, res) {
   try {
     var result = await authenticationClient.getAccessTokenByCode(req.body.code);
     res.statusCode = 200;
@@ -47,4 +47,4 @@ loginsRouter.post("/token", async function (req, res) {
   }
 });
 
-module.exports = loginsRouter;
+module.exports = authRouter;

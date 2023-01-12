@@ -8,7 +8,7 @@ const http = require("http");
 const tenantsRouter = require("./apis/tenants");
 const tenantUsersRouter = require("./apis/tenantUsers");
 const applicationsRouter = require("./apis/applications");
-const loginRouter = require("./apis/login");
+const authRouter = require("./apis/auth");
 const uploadRouter = require("./apis/upload");
 
 const app = express();
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/tenants", tenantsRouter);
 app.use("/tenant-users", tenantUsersRouter);
 app.use("/applications", applicationsRouter);
-app.use("/login", loginRouter);
+app.use("/auth", authRouter);
 app.use("/upload", uploadRouter);
 
 // catch 404 and forward to error handler
