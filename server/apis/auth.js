@@ -49,18 +49,27 @@ authRouter.post("/token", async function (req, res) {
 });
 
 authRouter.get("/logout", async function (req, res) {
-  const result = await axios.request({
-    method: "GET",
-    url: `${process.env.DEMO_AUTHING_APP_ENDPOINT}/api/v2/logout?app_id=${process.env.DEMO_AUTHING_APP_ID}`,
-    headers: {
-      authorization: req.headers["authorization"],
-      // "x-authing-request-from": "console",
-      "x-authing-userpool-id": process.env.DEMO_AUTHING_USERPOOL_ID || "",
-      "content-type": "application/json",
-    },
-    data: JSON.stringify(body || {}),
-  });
-  return result.data;
+  let result;
+  try {
+    result = await axios.request({
+      method: "GET",
+      url: `${process.env.DEMO_AUTHING_APP_ENDPOINT}/api/v2/logout?app_id=${process.env.DEMO_AUTHING_APP_ID}`,
+      headers: {
+        authorization: req.headers["authorization"],
+        // "x-authing-request-from": "console",
+        "x-authing-userpool-id": process.env.DEMO_AUTHING_USERPOOL_ID || "",
+        "content-type": "application/json",
+      },
+      data: {},
+    });
+  } catch (e) {
+    res.json({
+      code: 400,
+      statusCode: 400,
+      message: "登出失败",
+    });
+  }
+  res.json(result);
 });
 
 module.exports = authRouter;
