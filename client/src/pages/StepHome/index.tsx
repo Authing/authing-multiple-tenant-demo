@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { Link, Outlet, useMatches, useNavigate } from "react-router-dom";
 
-import { getApplicationConfig } from "@/api";
+import { getApplicationConfig } from "@/api/application";
 import { useGlobalState } from "@/context/globalContext";
 import { checkAuth } from "@/utils/checkToken";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";

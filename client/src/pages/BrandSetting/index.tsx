@@ -4,7 +4,7 @@ import { Button, Col, Modal, Row, Spin } from "antd";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { getApplicationConfig } from "@/api";
+import { getApplicationConfig } from "@/api/application";
 import { updateBrandingConfig } from "@/api/branding";
 import { GuardConfigPannel } from "@/components/GuardConfigPannel";
 import { GuardScreen } from "@/components/GuardScreen";
