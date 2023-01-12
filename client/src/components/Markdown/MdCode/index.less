@@ -1,0 +1,22 @@
+.markdown-code-wrapper {
+    position: relative;
+
+    &:hover {
+        .md-code-copy {
+            visibility: visible;
+        }
+    }
+
+    .md-code-copy {
+        visibility: hidden;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        color: #fff;
+        cursor: pointer;
+
+        &:hover {
+            color: darkseagreen;
+        }
+    }
+}
