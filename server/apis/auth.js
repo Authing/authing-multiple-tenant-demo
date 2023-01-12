@@ -48,7 +48,9 @@ authRouter.post("/token", async function (req, res) {
 });
 
 authRouter.get("/logout", async function (req, res) {
-  res.redirect(`${process.env.DEMO_AUTHING_API_ENDPOINT}/oidc/session/end`);
+  res.redirect(
+    `${process.env.DEMO_AUTHING_LOG_OUT_ENDPOINT}/api/v2/logout?app_id=${process.env.DEMO_AUTHING_CLIENT_ID}`
+  );
 });
 
 module.exports = authRouter;
