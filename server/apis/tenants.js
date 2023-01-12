@@ -5,7 +5,7 @@ var tenantsRouter = Router();
 tenantsRouter.post("/create", async function (req, res) {
   var result = await authingRequest(
     "POST",
-    "/api/v3/create-tenant",
+    "/api/v3/create-my-tenant",
     req.body,
     req.headers["authorization"]
   );
