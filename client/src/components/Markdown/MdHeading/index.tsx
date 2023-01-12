@@ -4,7 +4,13 @@ import { Options as TocOptions } from "rehype-toc";
 
 export const MdHeading: HeadingComponent = ({ level, children }) => {
   const id = `${level}-${children.toString()}`;
-  return createElement(`h${level}`, { id }, <a href={`#${id}`}>{children}</a>);
+  return createElement(
+    `h${level}`,
+    { id },
+    <a href={`#${id}`} style={{ color: "inherit" }}>
+      {children}
+    </a>
+  );
 };
 
 export const MdTocConfig: TocOptions = {
