@@ -64,14 +64,16 @@ export const BrandSetting = () => {
       title: "提示",
       content: "保存后，所有配置立即发布生效，是否确定？",
       onOk: async () => {
-        await updateBrandingConfig({
-          update: guardState?.changedConfig?.publicConfig,
-        });
+        await updateBrandingConfig(
+          appId,
+          { update: guardState?.changedConfig?.publicConfig },
+          { params: { tenantId } }
+        );
         setRetry({});
         setGuardState({ changedConfig: null });
       },
     });
-  }, [guardState]);
+  }, [appId, guardState, tenantId]);
 
   return (
     <div className="authing_mtd-brand-wrapper">
