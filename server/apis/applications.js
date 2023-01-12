@@ -55,7 +55,7 @@ applicationsRouter.post("/update/:appId", async function (req, res) {
   var appId = req.params.appId;
   var result = await authingRequest(
     "POST",
-    `api/v2/applications/${appId}`,
+    `/api/v2/applications/${appId}`,
     req.body,
     req.headers["authorization"],
     req.query.tenantId
@@ -69,7 +69,7 @@ applicationsRouter.get(
   async function (req, res) {
     var result = await authingRequest(
       "GET",
-      `api/v2/applications/has-custom-branding-enabled-app`,
+      `/api/v2/applications/has-custom-branding-enabled-app`,
       {},
       req.headers["authorization"],
       req.query.tenantId
