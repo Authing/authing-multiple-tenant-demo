@@ -18,7 +18,8 @@ tenantsRouter.post("/update-config", async function (req, res) {
     "POST",
     "/api/v3/update-userpool-tenant-config",
     req.body,
-    req.headers["authorization"]
+    req.headers["authorization"],
+    req.query.tenantId
   );
   res.statusCode = 200;
   res.json(result);

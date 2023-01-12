@@ -7,8 +7,8 @@ const authingRequest = async (
   url,
   body = {},
   authorization = "",
-  userPoolId = undefined,
-  tenantId = undefined
+  tenantId = "",
+  userPoolId = undefined
 ) => {
   const result = await axios.request({
     method: method,
@@ -18,8 +18,7 @@ const authingRequest = async (
       "x-authing-request-from": "console",
       "x-authing-userpool-id":
         userPoolId || process.env.DEMO_AUTHING_USERPOOL_ID || "",
-      "x-authing-app-tenant-id":
-        tenantId || process.env.DEMO_AUTHING_TENANT_ID || "",
+      "x-authing-app-tenant-id": tenantId || "",
       "content-type": "application/json",
     },
     data: JSON.stringify(body || {}),

@@ -7,7 +7,8 @@ tenantUsersRouter.post("/invite", async function (req, res) {
     "POST",
     "/api/v3/add-tenant-users",
     req.body,
-    req.headers["authorization"]
+    req.headers["authorization"],
+    req.query.tenantId
   );
   res.statusCode = 200;
   res.json(result);
@@ -18,7 +19,8 @@ tenantUsersRouter.post("/generate-invite-link", async function (req, res) {
     "POST",
     "/api/v3/generate-invite-tenant-user-link",
     req.body,
-    req.headers["authorization"]
+    req.headers["authorization"],
+    req.query.tenantId
   );
   res.statusCode = 200;
   res.json(result);
