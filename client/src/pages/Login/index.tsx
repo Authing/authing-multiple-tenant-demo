@@ -4,7 +4,7 @@ import { Button, Spin } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
 
-import { getTokenByCode } from "@/api/auth";
+import { getTokenByCode, LOGIN_URL } from "@/api/auth";
 import TenantDefaultDoor from "@/assets/tenant-default-door.svg";
 import env from "@/config/env";
 import { BASE_URL } from "@/utils/baseUrl";
@@ -43,7 +43,7 @@ export const Login = () => {
   }, [code]);
 
   const handleClick = useCallback(() => {
-    window.location.href = `${BASE_URL}/login`;
+    window.location.href = LOGIN_URL;
   }, []);
 
   if (ready && isPass) return <Navigate to="/step" />;

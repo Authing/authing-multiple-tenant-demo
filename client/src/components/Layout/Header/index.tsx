@@ -2,7 +2,9 @@ import "./index.less";
 
 import { Avatar, Button, ButtonProps, Dropdown, Layout, MenuProps } from "antd";
 
+import { logoutApp } from "@/api/auth";
 import env from "@/config/env";
+import { removeToken } from "@/utils/tokenStore";
 import { ToolOutlined, UserOutlined } from "@ant-design/icons";
 
 export interface HeaderProps {}
@@ -20,8 +22,9 @@ export default (props: HeaderProps) => {
     {
       label: "退出",
       key: "logout",
-      onClick() {
-        window.localStorage.removeItem(env("TOKEN_KEY")!);
+      onClick: async () => {
+        await logoutApp();
+        removeToken();
         window.location.reload();
       },
     },
