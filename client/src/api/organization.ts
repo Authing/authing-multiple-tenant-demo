@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 /** 创建组织 */
 export const createOrg = (params: {
@@ -29,6 +29,7 @@ export const getInviteLink = (params: {
 }): Promise<
   AuthingResponse<{
     list: GetInviteLinkType[];
+    errMsgs: { email: string; message: string }[];
   }>
 > => {
   return axios.post(`/tenant-users/generate-invite-link`, params, {
@@ -36,6 +37,9 @@ export const getInviteLink = (params: {
   });
 };
 
-export const sendInviteEmails = (params: { recordIds: number[] }) => {
-  return axios.post(`/tenant-users/invite`, params);
+export const sendInviteEmails = (
+  params: { recordIds: number[] },
+  config?: AxiosRequestConfig
+) => {
+  return axios.post(`/tenant-users/invite`, params, config);
 };
