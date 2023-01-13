@@ -79,7 +79,7 @@ export const StepHome = () => {
         <footer className="mtd-footer">
           <center>
             <Link to={footer?.btnTo!}>
-              <Button type="primary">
+              <Button type="primary" size="large">
                 {footer?.btnText}
                 <ArrowRightOutlined />
               </Button>
