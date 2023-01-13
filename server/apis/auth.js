@@ -53,7 +53,7 @@ authRouter.get("/logout", async function (req, res) {
   try {
     result = await axios.request({
       method: "GET",
-      url: `${process.env.DEMO_AUTHING_APP_ENDPOINT}/api/v2/logout?app_id=${process.env.DEMO_AUTHING_APP_ID}`,
+      url: `${process.env.DEMO_AUTHING_API_ENDPOINT}/api/v2/logout?app_id=${process.env.DEMO_AUTHING_APP_ID}`,
       headers: {
         authorization: req.headers["authorization"],
         "x-authing-userpool-id": process.env.DEMO_AUTHING_USERPOOL_ID || "",
@@ -62,6 +62,7 @@ authRouter.get("/logout", async function (req, res) {
       data: {},
     });
   } catch (e) {
+    console.log(e);
     res.json({
       code: 400,
       statusCode: 400,
