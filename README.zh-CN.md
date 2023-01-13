@@ -1,4 +1,4 @@
-# Authing 多租户 演示实例
+# Authing 多租户 演示示例
 
 <div align=center>
   <img width="250" src="https://files.authing.co/authing-console/authing-logo-new-20210924.svg" />
