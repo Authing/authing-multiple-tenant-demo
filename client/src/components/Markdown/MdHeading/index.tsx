@@ -1,9 +1,25 @@
-import { createElement } from "react";
+import { createElement, ReactNode } from "react";
 import { HeadingComponent } from "react-markdown/lib/ast-to-react";
 import { Options as TocOptions } from "rehype-toc";
 
+const getReactElementText = (children: ReactNode | ReactNode[]) => {
+  if (typeof children === "string") return children;
+  if (!Array.isArray(children)) return "";
+  const texts: string[] = [];
+  const str = children.reduce((str, child: any) => {
+    if (typeof child !== "object") return child as string;
+    if (child?.props?.children?.length) {
+      str += getReactElementText(child?.props?.children);
+    }
+    return str;
+  }, "");
+  texts.push(str as string);
+  return texts.join("");
+};
+
 export const MdHeading: HeadingComponent = ({ level, children }) => {
-  const id = `${level}-${children.toString()}`;
+  const titleStr = getReactElementText(children);
+  const id = `${level}-${titleStr}`;
   return createElement(
     `h${level}`,
     { id },
