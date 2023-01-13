@@ -102,9 +102,9 @@ npm run start
   pnpm start
   ```
 
-### 3.3 Access project
+### 3.3 Visit project
 
-Access <http://localhost:3009>
+Visit <http://localhost:3009>
 
 ## License
 
